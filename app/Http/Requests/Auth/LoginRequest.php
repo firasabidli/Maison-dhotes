@@ -40,17 +40,26 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
+    
+        $user = \App\Models\User::where('email', $this->email)->first();
+    
+        if (! $user) {
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => "L'adresse e-mail saisie n'existe pas dans notre base de données.",
             ]);
         }
-
+    
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+    
+            throw ValidationException::withMessages([
+                'password' => "Le mot de passe saisi est incorrect. Veuillez réessayer.",
+            ]);
+        }
+    
         RateLimiter::clear($this->throttleKey());
     }
+    
 
     /**
      * Ensure the login request is not rate limited.

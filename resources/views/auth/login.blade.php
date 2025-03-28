@@ -10,10 +10,33 @@
 </head>
 
 <body>
-    <main>
+
+<main class="{{ session()->has('register_errors') ? 'sign-up-mode' : '' }}">
+
+        
+
+
         <div class="box">
+       
             <div class="inner-box">
                 <div class="forms-wrap">
+                @if ($errors->any())
+                    @if (old('name')) 
+                        @php session()->flash('register_errors', true); @endphp
+                    @endif
+
+                    <div class="notification notification--failure" role="alert" aria-live="assertive">
+                        <div class="notification__body">
+                            <i class="bi bi-x-circle-fill notification__icon"></i>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="notification__progress"></div>
+                    </div>
+                @endif
                     <!-- Formulaire de connexion -->
                     <form method="POST" action="{{ route('login') }}" autocomplete="off" class="sign-in-form">
                         @csrf
@@ -25,17 +48,28 @@
                         </div>
 
                         <div class="actual-form">
-                            <!-- Email -->
+                          <!-- Email -->
                             <div class="input-wrap">
-                                <input type="email" name="email" class="input-field" required autofocus autocomplete="off" value="{{ old('email') }}" />
+                                <input type="email" name="email" class="input-field " required autofocus autocomplete="off" value="{{ old('email') }}" />
                                 <label>Email:</label>
+                               
                             </div>
-
-                            <!-- Mot de passe -->
+                           <div >
+                           @error('email')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                           </div>
+                          <!-- Mot de passe -->
                             <div class="input-wrap">
-                                <input type="password" name="password" class="input-field" required autocomplete="off" />
+                                <input type="password" name="password" class="input-field " required autocomplete="off" />
                                 <label>Mot de passe:</label>
+                                
                             </div>
+                            <div class=" mb-4">
+                            @error('password')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div> 
 
                             <!-- Se connecter -->
                             <input type="submit" value="Se connecter" class="sign-btn" />
@@ -61,29 +95,50 @@
                         </div>
 
                         <div class="actual-form">
-                            <!-- Nom -->
+                         <!-- Nom -->
                             <div class="input-wrap">
-                                <input type="text" name="name" class="input-field" required autocomplete="off" value="{{ old('name') }}" />
+                                <input type="text" name="name" class="input-field " required autocomplete="off" value="{{ old('name') }}" />
                                 <label>Nom</label>
+                               
                             </div>
-
-                            <!-- Email -->
+                            <div class="  mb-4">
+                            @error('name')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div> 
+                         <!-- Email -->
                             <div class="input-wrap">
-                                <input type="email" name="email" class="input-field" required autocomplete="off" value="{{ old('email') }}" />
+                                <input type="email" name="email" class="input-field " required autocomplete="off" value="{{ old('email') }}" />
                                 <label>Email</label>
+                               
                             </div>
-
-                            <!-- Mot de passe -->
+                            <div class="  mb-4">
+                            @error('email')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div> 
+                         <!-- Mot de passe -->
                             <div class="input-wrap">
-                                <input type="password" name="password" class="input-field" required autocomplete="off" />
+                                <input type="password" name="password" class="input-field " required autocomplete="off" />
                                 <label>Mot de passe</label>
+                                
                             </div>
-
+                          <div class="  mb-4">
+                          @error('password')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                          </div> 
                             <!-- Confirmation mot de passe -->
                             <div class="input-wrap">
-                                <input type="password" name="password_confirmation" class="input-field" required autocomplete="off" />
+                                <input type="password" name="password_confirmation" class="input-field " required autocomplete="off" />
                                 <label>Confirmer mot de passe</label>
-                            </div>
+                               
+                             </div>
+                                <div class="  mb-4">
+                                @error('password')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                                </div>
 
                             <input type="submit" value="S'inscrire" class="sign-btn" />
 

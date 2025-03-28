@@ -19,7 +19,19 @@ toggle_btn.forEach((btn) => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+  let toast = document.querySelector(".notification--failure");
+  if (toast) {
+      setTimeout(() => {
+          toast.style.display = "none";
+      }, 5000);
+  }
 
+  // Appliquer le mode sign-up si l'inscription a échoué
+  if (document.querySelector("main").classList.contains("sign-up-mode")) {
+      document.querySelector("main").classList.add("sign-up-mode");
+  }
+});
 
 
 

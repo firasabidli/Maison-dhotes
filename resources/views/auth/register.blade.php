@@ -10,6 +10,18 @@
 </head>
 
 <body>
+@if ($errors->any())
+<div class="toast">
+    <p>⚠️ Une ou plusieurs erreurs ont été détectées :</p>
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        
+    </ul>
+</div>
+@endif
+
     <main class="sign-up-mode">
         <div class="box">
             <div class="inner-box">
