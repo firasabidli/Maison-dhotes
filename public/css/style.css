@@ -77,7 +77,9 @@
       transform: scaleX(1);
   }
 }
-
+.erreurs{
+  margin-bottom: 10px;
+}
 body,
 input {
   font-family: "Poppins", sans-serif;
@@ -116,7 +118,7 @@ main {
   min-height: 100vh;
   overflow: hidden;
  
-  padding: 2rem;
+ 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,13 +132,14 @@ main {
   background-color: #fff;
   border-radius: 3.3rem;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+  
 }
 
 .inner-box {
   position: absolute;
   width: calc(100% - 4.1rem);
   height: calc(100% - 4.1rem);
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -205,7 +208,8 @@ form.sign-up-form {
 .input-wrap {
   position: relative;
   height: 37px;
-  margin-bottom: 2rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .input-field {
@@ -242,6 +246,73 @@ label {
   top: -2px;
 }
 
+/* start style for select  */
+/* Appliquer le style à l'enveloppe */
+.select-wrap {
+  position: relative;
+  height: 37px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+/* Style pour le champ input et select */
+.select-field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #bbb;
+  font-size: 0.95rem;
+  color: #5d0e88;
+  transition: 0.4s;
+  appearance: none; /* Supprime le style par défaut des select */
+  padding-right: 20px; /* Pour éviter le chevauchement avec la flèche */
+}
+
+/* Ajouter une icône flèche vers le bas */
+.select-wrap::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #bbb;
+  pointer-events: none;
+}
+
+/* Style pour le label */
+.select-label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  color: #bbb;
+  pointer-events: none;
+  transition: 0.4s;
+
+}
+select option:disabled {
+  color: #bbb;
+}
+
+/* Style actif lorsque le select est sélectionné */
+.select-field:focus, .select-field:not(:placeholder-shown) {
+  border-bottom-color: #5d0e88;
+}
+
+/* Réduction du label quand l'élément est sélectionné */
+.select-field:focus + label, 
+.select-field:not(:placeholder-shown) + label {
+  font-size: 0.79rem;
+  top: -2px;
+}
+
+/* end style for select  */
 .sign-btn {
   display: inline-block;
   width: 100%;
@@ -254,6 +325,19 @@ label {
   font-size: 0.8rem;
   margin-bottom: 2rem;
   transition: 0.3s;
+}
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+.toggle-password:hover {
+  color: #5d0e88;
 }
 
 .sign-btn:hover {

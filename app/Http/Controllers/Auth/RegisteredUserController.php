@@ -40,13 +40,15 @@ class RegisteredUserController extends Controller
                  'regex:/[A-Z]/', // Doit contenir une majuscule
                  'regex:/[0-9]/'  // Doit contenir un chiffre
              ],
+             'role' => ['required', 'in:client,propriétaire'], // Accepte uniquement "client" ou "propriétaire"
          ], [
              'name.min' => "Le nom doit contenir au moins 3 caractères.",
              'email.email' => "Veuillez entrer une adresse e-mail valide.",
              'email.unique' => "Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.",
              'password.min' => "Le mot de passe doit contenir au moins 6 caractères.",
              'password.regex' => "Le mot de passe doit contenir au moins une majuscule et un chiffre.",
-             'password.confirmed' => "Les mots de passe ne correspondent pas. Veuillez confirmer votre mot de passe."
+             'password.confirmed' => "Les mots de passe ne correspondent pas. Veuillez confirmer votre mot de passe.",
+             'role.in' => "Le rôle sélectionné est invalide. Veuillez choisir 'client' ou 'propriétaire'."
 
          ]);
             // Si la validation échoue, on retourne avec les erreurs et on ajoute register_errors à la session
@@ -63,6 +65,7 @@ class RegisteredUserController extends Controller
              'name' => $request->name,
              'email' => $request->email,
              'password' => Hash::make($request->password),
+             'role' => $request->role,
          ]);
      
          event(new Registered($user));

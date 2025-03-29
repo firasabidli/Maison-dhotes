@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Se connecter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 </head>
 
@@ -54,22 +55,24 @@
                                 <label>Email:</label>
                                
                             </div>
-                           <div >
+                           <div class="erreurs" >
                            @error('email')
                                     <small class="error-message">{{ $message }}</small>
                                 @enderror
                            </div>
                           <!-- Mot de passe -->
-                            <div class="input-wrap">
-                                <input type="password" name="password" class="input-field " required autocomplete="off" />
-                                <label>Mot de passe:</label>
-                                
-                            </div>
-                            <div class=" mb-4">
-                            @error('password')
+                          <div class="input-wrap">
+                                    <input type="password" name="password" class="input-field password-field" required autocomplete="off" />
+                                    <label>Mot de passe</label>
+                                    <span class="toggle-password">
+                                    <i class="bi bi-eye-slash-fill"></i>
+                                    </span>
+                                </div>
+                                <div class="  mb-4">
+                                @error('password')
                                     <small class="error-message">{{ $message }}</small>
                                 @enderror
-                            </div> 
+                                </div>
 
                             <!-- Se connecter -->
                             <input type="submit" value="Se connecter" class="sign-btn" />
@@ -117,36 +120,54 @@
                                     <small class="error-message">{{ $message }}</small>
                                 @enderror
                             </div> 
-                         <!-- Mot de passe -->
-                            <div class="input-wrap">
-                                <input type="password" name="password" class="input-field " required autocomplete="off" />
-                                <label>Mot de passe</label>
-                                
-                            </div>
-                          <div class="  mb-4">
-                          @error('password')
-                                    <small class="error-message">{{ $message }}</small>
-                                @enderror
-                          </div> 
-                            <!-- Confirmation mot de passe -->
-                            <div class="input-wrap">
-                                <input type="password" name="password_confirmation" class="input-field " required autocomplete="off" />
-                                <label>Confirmer mot de passe</label>
-                               
-                             </div>
+                         
+                                <!-- Mot de passe -->
+                                <div class="input-wrap">
+                                    <input type="password" name="password" class="input-field password-field" required autocomplete="off" />
+                                    <label>Mot de passe</label>
+                                    <span class="toggle-password">
+                                    <i class="bi bi-eye-slash-fill"></i>
+                                    </span>
+                                </div>
                                 <div class="  mb-4">
                                 @error('password')
                                     <small class="error-message">{{ $message }}</small>
                                 @enderror
                                 </div>
 
+                                <!-- Confirmation de mot de passe -->
+                                <div class="input-wrap">
+                                    <input type="password" name="password_confirmation" class="input-field password-field" required autocomplete="off" />
+                                    <label>Confirmer mot de passe</label>
+                                    <span class="toggle-password">
+                                    <i class="bi bi-eye-slash-fill"></i>
+                                    </span>
+                                </div>
+                                <div class="  mb-4">
+                                @error('password')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                                </div>
+
+
+                           <!-- role -->
+                            <div class="select-wrap">
+                                <select name="role" id="role" class="select-field" required >
+                                    <option value="" selected disabled>Choisir votre rôle</option>
+                                    <option value="client">Client</option>
+                                    <option value="propriétaire">Propriétaire</option>
+                                </select>
+                                <label class="select-label">S'inscrire en tant que Client / Propriétaire</label>
+                            </div>
+                            <div class="mb-4">
+                                @error('role')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div>
+
                             <input type="submit" value="S'inscrire" class="sign-btn" />
 
-                            <p class="text">
-                                En vous inscrivant, vous acceptez les
-                                <a href="#">Conditions d'utilisation</a> et
-                                <a href="#">Politique de confidentialité</a>
-                            </p>
+                            
                         </div>
                     </form>
                 </div>
