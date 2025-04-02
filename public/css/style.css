@@ -129,7 +129,7 @@ main {
   width: 100%;
   max-width: 1020px;
   height: 640px;
-  background-color: #fff;
+  background-color: #323232;
   border-radius: 3.3rem;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
   
@@ -183,7 +183,7 @@ form.sign-up-form {
 .heading h2 {
   font-size: 2.1rem;
   font-weight: 600;
-  color:#5d0e88;
+  color:#ffd333;
 }
 
 .heading h6 {
@@ -194,7 +194,7 @@ form.sign-up-form {
 }
 
 .toggle {
-  color: #5d0e88;
+  color: #ffd333;
   text-decoration: none;
   font-size: 0.75rem;
   font-weight: 500;
@@ -202,7 +202,7 @@ form.sign-up-form {
 }
 
 .toggle:hover {
-  color: #8371fd;
+  color: #ffffff;
 }
 
 .input-wrap {
@@ -222,7 +222,7 @@ form.sign-up-form {
   border-bottom: 1px solid #bbb;
   padding: 0;
   font-size: 0.95rem;
-  color: #5d0e88;
+  color: #ffd333;
   transition: 0.4s;
 }
 
@@ -238,7 +238,7 @@ label {
 }
 
 .input-field.active {
-  border-bottom-color: #5d0e88;
+  border-bottom-color: #ffd333;
 }
 
 .input-field.active + label {
@@ -260,15 +260,16 @@ label {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: none;
+  background: #323232;
   border: none;
   outline: none;
   border-bottom: 1px solid #bbb;
   font-size: 0.95rem;
-  color: #5d0e88;
+  color: #ffd333;
   transition: 0.4s;
   appearance: none; /* Supprime le style par défaut des select */
   padding-right: 20px; /* Pour éviter le chevauchement avec la flèche */
+
 }
 
 /* Ajouter une icône flèche vers le bas */
@@ -302,7 +303,7 @@ select option:disabled {
 
 /* Style actif lorsque le select est sélectionné */
 .select-field:focus, .select-field:not(:placeholder-shown) {
-  border-bottom-color: #5d0e88;
+  border-bottom-color: #ffd333;
 }
 
 /* Réduction du label quand l'élément est sélectionné */
@@ -317,7 +318,7 @@ select option:disabled {
   display: inline-block;
   width: 100%;
   height: 43px;
-  background-color: #5d0e88;
+  background-color: #ffd333;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -337,11 +338,12 @@ select option:disabled {
 }
 
 .toggle-password:hover {
-  color: #5d0e88;
+  color: #ffd333;
 }
 
 .sign-btn:hover {
-  background-color: #8371fd;
+  background-color: #000000;
+  color: #ffd333;
 }
 
 .text {
