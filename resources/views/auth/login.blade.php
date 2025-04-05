@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Se connecter</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 </head>
 
@@ -88,7 +90,7 @@
                     </form>
 
                     <!-- Formulaire d'inscription -->
-                    <form method="POST" action="{{ route('register') }}" autocomplete="off" class="sign-up-form">
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off" enctype="multipart/form-data" class="sign-up-form">
                         @csrf
 
                         <div class="heading">
@@ -98,6 +100,20 @@
                         </div>
 
                         <div class="actual-form">
+                            <!-- Avatar -->
+                            <div class="upload">
+                                <img id="avatarPreview" src="{{ asset('img/noprofil.jpg') }}" width="100" height="100" alt="Avatar">
+                                <div class="round">
+                                    <input type="file" name="avatar" accept="image/*,.jpeg,.png,.jpg">
+                                    <i class="fa fa-camera" style="color: #fff;"></i>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                @error('avatar')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div>
+
                          <!-- Nom -->
                             <div class="input-wrap">
                                 <input type="text" name="name" class="input-field " required autocomplete="off" value="{{ old('name') }}" />

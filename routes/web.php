@@ -14,6 +14,7 @@ Route::middleware('guest')->get('/', function () {
 Route::get('/home', function () {
     return view('client.home');
 })->middleware(['auth', 'verified'])->name('client.home');
+Route::get('/test-upload', [\App\Http\Controllers\CloudinaryTestController::class, 'uploadTest']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

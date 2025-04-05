@@ -21,7 +21,7 @@
             <div class="profile-dropdown " >
                 <button id="profile-btn" class="profile-btn">
                     
-                    <img src="{{ asset('img/profile.jpg') }}" alt="Profile">
+                    <img src="{{ asset('img/noprofil.jpg') }}" alt="Profile">
                     <span>John Doe ▼</span>
                 </button>
                 <ul id="profile-menu" class="profile-menu">

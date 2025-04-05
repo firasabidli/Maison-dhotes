@@ -478,7 +478,6 @@ a {
 
 
 /* doctors */
-
 .doctors--right--btns {
     display: flex;
     align-items: center;
@@ -512,7 +511,26 @@ a {
 
 .doctors--cards {
     display: flex;
+    flex-wrap: nowrap;
     gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #5073fb #f1f1f1;
+}
+
+ .doctors--cards::-webkit-scrollbar {
+    height: 6px;
+}
+
+ .doctors--cards::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+ .doctors--cards::-webkit-scrollbar-thumb {
+    background-color: #5073fb;
+    border-radius: 10px;
 }
 
 .doctor--card {
@@ -525,6 +543,9 @@ a {
     flex-direction: column;
     align-items: center;
     font-size: .8rem;
+    flex: 0 0 auto;
+    width: 180px;
+    scroll-snap-align: start;
 }
 
 .doctor--card:hover {
@@ -555,6 +576,15 @@ a {
     color: #5073fb;
 }
 
+/* Responsive */
+@media screen and (max-width: 1350px) {
+    .doctors--cards {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+}
+
 
 /* recent--patients */
 
@@ -565,6 +595,8 @@ a {
 .table {
     height: 200px;
     overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #5073fb #f1f1f1;
 }
 
 table {
@@ -606,12 +638,13 @@ th {
 
 /* responsive starts here */
 
-@media screen and (max-width:1350px) {
-    .cards,
-    .doctors--cards {
+ @media screen and (max-width:1350px) {
+    .cards {
         overflow-x: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: #5073fb #f1f1f1;
     }
-}
+} 
 
 @media screen and (max-width:1024px) {
     table {

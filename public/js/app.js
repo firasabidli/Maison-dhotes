@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (toast) {
       setTimeout(() => {
           toast.style.display = "none";
-      }, 5000);
+      }, 25000);
   }
 
   // Appliquer le mode sign-up si l'inscription a échoué
@@ -52,5 +52,23 @@ document.querySelectorAll(".toggle-password").forEach((toggle) => {
 });
 
 
+// upload avatar => remplacer l'image sélectionné au lieu de l'image noprofil.jpg
 
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.querySelector(".upload input[type='file']");
+  const imgPreview = document.querySelector(".upload img");
 
+  fileInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+
+      if (file) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+              imgPreview.src = e.target.result;
+          };
+
+          reader.readAsDataURL(file);
+      }
+  });
+});

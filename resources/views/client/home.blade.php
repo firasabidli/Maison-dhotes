@@ -67,7 +67,7 @@
                         </div>
                         <div class="navbar-nav ml-auto py-0  d-lg-block">
                             <div class="btn-group px-0  profile ">
-                              <span class="nav-link profil-name"> {{ Auth::user()->name }}</span>  <img src="https://github.com/mdo.png" alt="mdo"  class="rounded-circle  dropdown-toggle" data-toggle="dropdown">
+                              <span class="nav-link profil-name"> {{ Auth::user()->name }}</span>  <img src="{{ Auth::user()->avatar ? asset('storage/public/avatars/' . basename(Auth::user()->avatar)) : asset('img/noprofil.jpg') }}"  alt="mdo"  class="rounded-circle  dropdown-toggle" data-toggle="dropdown">
                                <div class="dropdown-menu dropdown-menu-right">
                                    <li><a class="dropdown-item" href="#">Profile</a></li>
                                    <li><hr class="dropdown-divider"></li>

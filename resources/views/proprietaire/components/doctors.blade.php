@@ -22,6 +22,14 @@
                     <a href="#" class="doctor--card">
                         <div class="img--box--cover">
                             <div class="img--box">
+                                <img src="{{ asset('img/doctor1.jpg') }}" alt="">
+                            </div>
+                        </div>
+                        <p class="free">Free</p>
+                    </a>
+                    <a href="#" class="doctor--card">
+                        <div class="img--box--cover">
+                            <div class="img--box">
                                 <img src="{{ asset('img/doctor2.jpg') }}" alt="">
                             </div>
                         </div>
