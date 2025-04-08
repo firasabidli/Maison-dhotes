@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('proprietaire.page2') }}" class="{{ Request::is('proprietaire/page2') ? 'active--link ' : '  text--dark' }}"  >
+            <a href="{{ route('category.index') }}" class="{{ Request::is('proprietaire/categories') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
                 <span class="sidebar--item">Schedule</span>
             </a>

@@ -15,8 +15,8 @@ class ProprietaireController extends Controller
     {
         return view('proprietaire.dashboard');
     }
-    public function page2()
-    {
-        return view('proprietaire.page2');
-    }
+    // public function page2()
+    // {
+    //     return view('proprietaire.page2');
+    // }
 }

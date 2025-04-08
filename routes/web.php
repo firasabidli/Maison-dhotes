@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProprietaireController;
+use App\Http\Controllers\CategoryController;
 
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
@@ -14,7 +15,6 @@ Route::middleware('guest')->get('/', function () {
 Route::get('/home', function () {
     return view('client.home');
 })->middleware(['auth', 'verified'])->name('client.home');
-Route::get('/test-upload', [\App\Http\Controllers\CloudinaryTestController::class, 'uploadTest']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,7 +29,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 Route::middleware(['auth', 'role:propriétaire'])->group(function(){
     Route::get('/proprietaire/dashboard', [ProprietaireController::class, 'dashboard'])->name('proprietaire.dashboard');
-    Route::get('/proprietaire/page2', [ProprietaireController::class, 'page2'])->name('proprietaire.page2');
+    //Route::get('/proprietaire/page2', [ProprietaireController::class, 'page2'])->name('proprietaire.page2');
+    // Routes CRUD Catégories
+    Route::get('/proprietaire/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/proprietaire/categories', [CategoryController::class, 'store'])->name('category.store');
 });
 
 require __DIR__.'/auth.php';
