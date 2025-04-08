@@ -1,6 +1,4 @@
-
-      <!-- Modal -->
-<div id="modal-ajout" class="modal">
+<div class="modal" id="modal-ajout">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h3>Ajouter une catégorie</h3>

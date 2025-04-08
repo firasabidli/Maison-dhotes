@@ -33,6 +33,9 @@ Route::middleware(['auth', 'role:propriétaire'])->group(function(){
     // Routes CRUD Catégories
     Route::get('/proprietaire/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/proprietaire/categories', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/proprietaire/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/proprietaire/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
 });
 
 require __DIR__.'/auth.php';

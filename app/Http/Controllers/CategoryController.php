@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class CategoryController extends Controller
 {
+    // Afficher tous les catégories
+    
     public function index()
     {
         $categories = Category::paginate(4);
         return view('proprietaire.page2', compact('categories'));
     }
 
-    public function create()
-    {
-        return view('categories.create');
-    }
+   
+    // Enregistrer une catégories dans la base de donnée
 
     public function store(Request $request)
     {
@@ -40,38 +42,48 @@ class CategoryController extends Controller
     }
 
 
-    public function show(Category $category)
-    {
-        return view('categories.show', compact('category'));
-    }
+    // Modifier une catégorie 
 
-    public function edit(Category $category)
+    public function update(Request $request, $id)
     {
-        return view('categories.edit', compact('category'));
-    }
-
-    public function update(Request $request, Category $category)
-    {
+        $validator = Validator::make($request->all(), [
+            'nom' => 'required|string|max:255'
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->route('category.index')
+                ->withErrors($validator)
+                ->withInput()
+                ->with('open_modal', 'modal-edit-' . $id);
+        }
+    
+        $category = Category::find($id);
+    
         if (!$category) {
             return redirect()->route('category.index')->with('error', 'Catégorie introuvable.');
         }
-
-        $request->validate([
-            'nom' => 'required|string|max:255'
-        ]);
-
+    
         $category->update([
             'nom' => $request->nom
         ]);
-
+    
         return redirect()->route('category.index')->with('success', 'Catégorie mise à jour.');
     }
+    
 
+    // Supprimer une catégorie
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
         try {
+            $category = Category::find($id);
+    
+            if (!$category) {
+                return redirect()->route('category.index')->with('error', 'Catégorie introuvable.');
+            }
+    
             $category->delete();
+    
             return redirect()->route('category.index')->with('success', 'Catégorie supprimée.');
         } catch (\Exception $e) {
             return redirect()->route('category.index')->with('error', 'Erreur lors de la suppression de la catégorie.');
