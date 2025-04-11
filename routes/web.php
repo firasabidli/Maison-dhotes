@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\MaisonController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/', [MaisonController::class, 'generalIndex'])->name('accueil');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -29,12 +30,19 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 Route::middleware(['auth', 'role:propriétaire'])->group(function(){
     Route::get('/proprietaire/dashboard', [ProprietaireController::class, 'dashboard'])->name('proprietaire.dashboard');
-    //Route::get('/proprietaire/page2', [ProprietaireController::class, 'page2'])->name('proprietaire.page2');
+    
     // Routes CRUD Catégories
+
     Route::get('/proprietaire/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/proprietaire/categories', [CategoryController::class, 'store'])->name('category.store');
     Route::put('/proprietaire/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/proprietaire/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    
+    // Routes CRUD maisons
+    Route::get('/proprietaire/maisons', [MaisonController::class, 'index'])->name('maisons.index');
+    Route::post('/proprietaire/maisons', [MaisonController::class, 'store'])->name('maisons.store');
+    Route::put('/proprietaire/maisons/{id}', [MaisonController::class, 'update'])->name('maisons.update');
+    Route::delete('/proprietaire/maisons/{id}', [MaisonController::class, 'destroy'])->name('maisons.destroy');
 
 });
 

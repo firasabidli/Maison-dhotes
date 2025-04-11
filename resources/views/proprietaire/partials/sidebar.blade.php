@@ -9,13 +9,13 @@
         <li>
             <a href="{{ route('category.index') }}" class="{{ Request::is('proprietaire/categories') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                <span class="sidebar--item">Schedule</span>
+                <span class="sidebar--item">Catégories</span>
             </a>
         </li>
         <li>
-            <a href="#" class="{{ Request::is('proprietaire/doctors') ? 'active--link ' : '  text--dark' }}"  >
+            <a href="{{ route('maisons.index') }}" class="{{ Request::is('proprietaire/maisons') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
-                <span class="sidebar--item" style="white-space: nowrap;">Reliable Doctor</span>
+                <span class="sidebar--item" style="white-space: nowrap;">Maisons d'Hôte</span>
             </a>
         </li>
         <li>

@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     // Afficher tous les catégories
-    
+
     public function index()
     {
         $categories = Category::paginate(4);
-        return view('proprietaire.page2', compact('categories'));
+        return view('proprietaire.categories', compact('categories'));
     }
 
    

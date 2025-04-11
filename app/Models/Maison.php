@@ -6,15 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maison extends Model
 {
-    protected $fillable = ['nom', 'description', 'category_id', 'images'];
+    protected $fillable = [
+        'nom', 'description', 'adresse', 'ville', 'prix_par_nuit',
+        'capacite', 'disponible', 'category_id', 'user_id', 'images'
+    ];
 
     protected $casts = [
         'images' => 'array',
+        'disponible' => 'boolean',
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-}
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

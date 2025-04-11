@@ -1,73 +1,80 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Maison;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class MaisonController extends Controller
 {
     public function index()
     {
-        $maisons = Maison::with('category')->get();
-        return view('maisons.index', compact('maisons'));
+        $maisons = Maison::where('user_id', Auth::id())
+                        ->with('category')
+                        ->paginate(4); 
+    
+        return view('proprietaire.maisons', compact('maisons'));
     }
-
-    public function create()
-    {
-        $categories = Category::all();
-        return view('maisons.create', compact('categories'));
-    }
+    
 
     public function store(Request $request)
     {
         $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'adresse' => 'required|string',
+            'ville' => 'required|string',
+            'prix_par_nuit' => 'required|numeric',
+            'capacite' => 'required|integer',
+            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
 
         $imagePaths = [];
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $filename = Carbon::now()->format('Ymd_His') . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('public/maisons', $filename);
-                $imagePaths[] = Storage::url($path);
+                $filename = Carbon::now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/maisons', $filename);
+                $imagePaths[] = $filename;
             }
         }
 
         Maison::create([
             'nom' => $request->nom,
             'description' => $request->description,
+            'adresse' => $request->adresse,
+            'ville' => $request->ville,
+            'prix_par_nuit' => $request->prix_par_nuit,
+            'capacite' => $request->capacite,
+            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
+            'user_id' => Auth::id(),
             'images' => $imagePaths
         ]);
 
-        return redirect()->route('maisons.index')->with('success', 'Maison ajoutée.');
+        return redirect()->route('maisons.index')->with('success', 'Maison ajoutée avec succès.');
     }
 
-    public function show(Maison $maison)
+    public function update(Request $request, $id)
     {
-        return view('maisons.show', compact('maison'));
-    }
+        $maison = Maison::findOrFail($id);
 
-    public function edit(Maison $maison)
-    {
-        $categories = Category::all();
-        return view('maisons.edit', compact('maison', 'categories'));
-    }
+        if ($maison->user_id !== Auth::id()) {
+            return back()->with('error', 'Non autorisé.');
+        }
 
-    public function update(Request $request, Maison $maison)
-    {
         $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'adresse' => 'required|string',
+            'ville' => 'required|string',
+            'prix_par_nuit' => 'required|numeric',
+            'capacite' => 'required|integer',
+            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
@@ -76,15 +83,20 @@ class MaisonController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $filename = Carbon::now()->format('Ymd_His') . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('public/maisons', $filename);
-                $imagePaths[] = Storage::url($path);
+                $filename = Carbon::now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/maisons', $filename);
+                $imagePaths[] = $filename;
             }
         }
 
         $maison->update([
             'nom' => $request->nom,
             'description' => $request->description,
+            'adresse' => $request->adresse,
+            'ville' => $request->ville,
+            'prix_par_nuit' => $request->prix_par_nuit,
+            'capacite' => $request->capacite,
+            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
             'images' => $imagePaths
         ]);
@@ -92,10 +104,16 @@ class MaisonController extends Controller
         return redirect()->route('maisons.index')->with('success', 'Maison mise à jour.');
     }
 
-    public function destroy(Maison $maison)
+    public function destroy($id)
     {
+        $maison = Maison::findOrFail($id);
+
+        if ($maison->user_id !== Auth::id()) {
+            return back()->with('error', 'Non autorisé.');
+        }
+
         $maison->delete();
+
         return redirect()->route('maisons.index')->with('success', 'Maison supprimée.');
     }
 }
-
