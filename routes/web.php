@@ -7,14 +7,20 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MaisonController;
+use App\Http\Controllers\HomeController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
 
 
-Route::get('/home', function () {
-    return view('client.home');
-})->middleware(['auth', 'verified'])->name('client.home');
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('client.home');
+
+
+// Route::get('/home', function () {
+//     return view('client.home');
+// })->middleware(['auth', 'verified'])->name('client.home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

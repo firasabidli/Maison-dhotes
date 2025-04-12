@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Maison;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class MaisonController extends Controller
     public function index()
     {
         $maisons = Maison::where('user_id', Auth::id())
-                        ->with('category')
+                        ->with('categorie')
                         ->paginate(4); 
     
         return view('proprietaire.maisons', compact('maisons'));
@@ -59,14 +61,15 @@ class MaisonController extends Controller
         return redirect()->route('maisons.index')->with('success', 'Maison ajoutée avec succès.');
     }
 
+    
     public function update(Request $request, $id)
     {
         $maison = Maison::findOrFail($id);
-
+    
         if ($maison->user_id !== Auth::id()) {
             return back()->with('error', 'Non autorisé.');
         }
-
+    
         $request->validate([
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -78,9 +81,17 @@ class MaisonController extends Controller
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
-
-        $imagePaths = $maison->images ?? [];
-
+    
+        // Supprimer les anciennes images
+        if ($maison->images) {
+            foreach ($maison->images as $image) {
+                Storage::delete('public/maisons/' . $image);
+            }
+        }
+    
+        $imagePaths = [];
+    
+        // Ajouter les nouvelles images
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $filename = Carbon::now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -88,7 +99,7 @@ class MaisonController extends Controller
                 $imagePaths[] = $filename;
             }
         }
-
+    
         $maison->update([
             'nom' => $request->nom,
             'description' => $request->description,
@@ -100,20 +111,29 @@ class MaisonController extends Controller
             'category_id' => $request->category_id,
             'images' => $imagePaths
         ]);
-
+    
         return redirect()->route('maisons.index')->with('success', 'Maison mise à jour.');
     }
+    
 
     public function destroy($id)
     {
         $maison = Maison::findOrFail($id);
-
+    
         if ($maison->user_id !== Auth::id()) {
             return back()->with('error', 'Non autorisé.');
         }
-
+    
+        // Supprimer les images du disque
+        if ($maison->images) {
+            foreach ($maison->images as $image) {
+                Storage::delete('public/maisons/' . $image);
+            }
+        }
+    
         $maison->delete();
-
+    
         return redirect()->route('maisons.index')->with('success', 'Maison supprimée.');
     }
+    
 }

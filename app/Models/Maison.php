@@ -16,7 +16,7 @@ class Maison extends Model
         'disponible' => 'boolean',
     ];
 
-    public function category()
+    public function categorie()
     {
         return $this->belongsTo(Category::class);
     }
