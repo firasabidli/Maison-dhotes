@@ -122,7 +122,11 @@ p {
   height: 100%;
   object-fit: cover; /* garde l'image bien cadrée et couvre l'espace */
 }
-
+.form-scroll{
+  overflow-y: scroll;
+  height: 400px;
+  scrollbar-color: #ffd333 #f1f1f1;
+}
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
@@ -269,6 +273,18 @@ button {
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
+}
+#suggestionList {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+#suggestionList.show {
+  display: block !important;
+  opacity: 1;
+  transform: scaleY(1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 input,

@@ -84,21 +84,42 @@
     });
 
 
-    // Product Quantity
-    $('.quantity button').on('click', function () {
-        var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
-        if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
-            }
-        }
-        button.parent().parent().find('input').val(newVal);
-    });
+  
     
 })(jQuery);
 
+// search dynamaque avec suggestions
+function showSuggestions() {
+    const list = document.getElementById("suggestionList");
+    list.classList.add("show");
+
+    document.querySelectorAll(".suggestion-text").forEach(item => {
+        item.onclick = () => {
+            const nom = item.textContent;
+            const id = item.getAttribute("data-id");
+
+            // Remplir le champ
+            document.getElementById("searchInput").value = nom;
+
+            // Fermer la suggestion
+            list.classList.remove("show");
+
+            // Rediriger vers la page détail
+            window.location.href = "/maison/" + id + "/detail"; // Adapte si nécessaire selon ta route
+        };
+    });
+}
+
+// Fermer au clic extérieur
+document.addEventListener("click", function(event) {
+    const input = document.getElementById("searchInput");
+    const list = document.getElementById("suggestionList");
+    if (!input.contains(event.target) && !list.contains(event.target)) {
+        list.classList.remove("show");
+    }
+});
+
+// Supprimer suggestion
+function removeSuggestion(el) {
+    el.closest('li').remove();
+}

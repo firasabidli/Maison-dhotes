@@ -21,7 +21,16 @@ class MaisonController extends Controller
         return view('proprietaire.maisons', compact('maisons'));
     }
     
+    public function showDetail($id)
+    {
+        $maison = Maison::with('categorie', 'user')->findOrFail($id);
+        $categorie = Category::find($maison->category_id);
+        $images = $maison->images; // Récupère les images de la maison
+        $noms = Maison::select('id', 'nom')->distinct()->get();
+        return view('client.detail-maison', compact('maison', 'categorie', 'images', 'noms'));
+    }
 
+    
     public function store(Request $request)
     {
         $request->validate([

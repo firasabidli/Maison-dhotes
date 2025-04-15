@@ -8,6 +8,7 @@ use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MaisonController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MaisonListController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -27,6 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/', [MaisonController::class, 'generalIndex'])->name('accueil');
+    Route::get('/maison/{id}/detail', [MaisonController::class, 'showDetail'])->name('maison.detail');
+    Route::get('/maison-list', [MaisonListController::class, 'maisonList'])->name('maisonList.maisonList');
+    Route::get('/search-maison', function (Request $request) {
+        return redirect()->route('maison.detail', ['id' => $request->maison_id]);
+    })->name('maisons.redirectDetail');
+    
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){

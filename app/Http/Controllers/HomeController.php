@@ -16,8 +16,8 @@ class HomeController extends Controller
 
         $maisons = Maison::with('categorie')
             ->paginate(4);
-
-        return view('client.home', compact('categories', 'maisons'));
+            $noms = Maison::select('id', 'nom')->distinct()->get();
+        return view('client.home', compact('categories', 'maisons', 'noms'));
     }
 }
 

@@ -12,13 +12,40 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Adresse:</label>
-                    <input type="text" name="adresse" value="{{ old('adresse') }}" required>
+                    <label>Ville:</label>
+                    <input type="text" name="ville" value="{{ old('ville') }}" required>
+                    <select name="ville" class="form-control" required>
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="Tunis" {{ old('ville') == 'Tunis' ? 'selected' : '' }}>Tunis</option>
+                        <option value="Sfax" {{ old('ville') == 'Sfax' ? 'selected' : '' }}>Sfax</option>
+                        <option value="Sousse" {{ old('ville') == 'Sousse' ? 'selected' : '' }}>Sousse</option>
+                        <option value="Kairouan" {{ old('ville') == 'Kairouan' ? 'selected' : '' }}>Kairouan</option>
+                        <option value="Bizerte" {{ old('ville') == 'Bizerte' ? 'selected' : '' }}>Bizerte</option>
+                        <option value="Gabès" {{ old('ville') == 'Gabès' ? 'selected' : '' }}>Gabès</option>
+                        <option value="Ariana" {{ old('ville') == 'Ariana' ? 'selected' : '' }}>Ariana</option>
+                        <option value="Monastir" {{ old('ville') == 'Monastir' ? 'selected' : '' }}>Monastir</option>
+                        <option value="Nabeul" {{ old('ville') == 'Nabeul' ? 'selected' : '' }}>Nabeul</option>
+                        <option value="Béja" {{ old('ville') == 'Béja' ? 'selected' : '' }}>Béja</option>
+                        <option value="Jendouba" {{ old('ville') == 'Jendouba' ? 'selected' : '' }}>Jendouba</option>
+                        <option value="Le Kef" {{ old('ville') == 'Le Kef' ? 'selected' : '' }}>Le Kef</option>
+                        <option value="Mahdia" {{ old('ville') == 'Mahdia' ? 'selected' : '' }}>Mahdia</option>
+                        <option value="Médenine" {{ old('ville') == 'Médenine' ? 'selected' : '' }}>Médenine</option>
+                        <option value="Tataouine" {{ old('ville') == 'Tataouine' ? 'selected' : '' }}>Tataouine</option>
+                        <option value="Tozeur" {{ old('ville') == 'Tozeur' ? 'selected' : '' }}>Tozeur</option>
+                        <option value="Kébili" {{ old('ville') == 'Kébili' ? 'selected' : '' }}>Kébili</option>
+                        <option value="Zaghouan" {{ old('ville') == 'Zaghouan' ? 'selected' : '' }}>Zaghouan</option>
+                        <option value="Ben Arous" {{ old('ville') == 'Ben Arous' ? 'selected' : '' }}>Ben Arous</option>
+                        <option value="La Manouba" {{ old('ville') == 'La Manouba' ? 'selected' : '' }}>La Manouba</option>
+                        <option value="Siliana" {{ old('ville') == 'Siliana' ? 'selected' : '' }}>Siliana</option>
+                        <option value="Gafsa" {{ old('ville') == 'Gafsa' ? 'selected' : '' }}>Gafsa</option>
+                        <option value="Sidi Bouzid" {{ old('ville') == 'Sidi Bouzid' ? 'selected' : '' }}>Sidi Bouzid</option>
+                        <option value="Djerba" {{ old('ville') == 'Djerba' ? 'selected' : '' }}>Djerba</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Ville:</label>
-                    <input type="text" name="ville" value="{{ old('ville') }}" required>
+                    <label>Adresse:</label>
+                    <input type="text" name="adresse" value="{{ old('adresse') }}" required>
                 </div>
 
                 <div class="form-group">
