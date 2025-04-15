@@ -99,7 +99,7 @@
         </div>
     </div>
     <!-- Navbar End -->
-
+    @include('client.components.alert')
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -162,8 +162,8 @@
                     
                    
                     <div class="d-flex align-items-center mb-4 pt-2">
+                    <button class="btn btn-primary px-3"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fa fa-shopping-cart mr-1"></i> Reserver</button>
                         
-                        <a href="" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Reserver</a>
                     </div>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
@@ -258,10 +258,9 @@
         </div>
     </div>
     <!-- Shop Detail End -->
-
-
-    
-
+     
+    @include('client.components.modal.reservation-modal', ['maison' => $maison])
+   
       <!-- Footer Start -->
 <div class="container-fluid bg-dark text-secondary  pt-5">
     <div class="row px-xl-5 ">

@@ -99,7 +99,7 @@
         </div>
     </div>
     <!-- Navbar End -->
-
+    @include('client.components.alert')
 
     <!-- Carousel Start -->
     <div class="container-fluid mb-3">
@@ -216,7 +216,7 @@
                      alt="Image de la maison"> 
             </div>
             <div class="product-action">
-                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                <button class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fa fa-shopping-cart"></i></button>
                 <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
             </div>
             <div class="text-center py-4">
@@ -236,6 +236,7 @@
             </div>
         </div>
     </div>
+    @include('client.components.modal.reservation-modal', ['maison' => $maison])
     @endforeach
 </div>
 

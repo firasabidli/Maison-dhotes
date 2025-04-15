@@ -123,3 +123,64 @@ document.addEventListener("click", function(event) {
 function removeSuggestion(el) {
     el.closest('li').remove();
 }
+
+
+// modal réservation
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Gérer l'ouverture de tous les modals via data-modal-target
+    document.querySelectorAll('[data-modal-target]').forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal-target');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                modal.classList.add('show-modal');
+            }
+        });
+    });
+
+    // Gérer la fermeture des modals via bouton .close ou clic hors modal
+    document.querySelectorAll('.modal').forEach(modal => {
+        const closeBtn = modal.querySelector('.close');
+        closeBtn?.addEventListener('click', () => {
+            modal.classList.remove('show-modal');
+            setTimeout(() => modal.style.display = 'none', 300);
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show-modal');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        });
+    });
+});
+
+// Alert
+
+window.addEventListener('DOMContentLoaded', () => {
+    const alert = document.querySelector('.custom-alert');
+
+    if (alert) {
+        // Affiche l'alerte avec animation
+        alert.classList.add("show", "showAlert");
+        alert.classList.remove("hide");
+
+        // Masquer automatiquement après 5 secondes
+        const hideTimeout = setTimeout(() => {
+            alert.classList.remove("show", "showAlert");
+            alert.classList.add("hide");
+        }, 5000);
+
+        // Bouton de fermeture manuelle
+        const closeBtn = alert.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                clearTimeout(hideTimeout); // empêche le double retrait
+                alert.classList.remove("show", "showAlert");
+                alert.classList.add("hide");
+            });
+        }
+    }
+});

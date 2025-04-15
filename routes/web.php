@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MaisonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaisonListController;
+use App\Http\Controllers\ReservationController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -30,11 +31,11 @@ Route::middleware('auth')->group(function () {
     // Route::get('/', [MaisonController::class, 'generalIndex'])->name('accueil');
     Route::get('/maison/{id}/detail', [MaisonController::class, 'showDetail'])->name('maison.detail');
     Route::get('/maison-list', [MaisonListController::class, 'maisonList'])->name('maisonList.maisonList');
-    Route::get('/search-maison', function (Request $request) {
-        return redirect()->route('maison.detail', ['id' => $request->maison_id]);
-    })->name('maisons.redirectDetail');
+    // Route::get('/search-maison', function (Request $request) {
+    //     return redirect()->route('maison.detail', ['id' => $request->maison_id]);
+    // })->name('maisons.redirectDetail');
     
-
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
