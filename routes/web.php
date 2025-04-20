@@ -10,6 +10,7 @@ use App\Http\Controllers\MaisonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaisonListController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\AvisController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -20,22 +21,17 @@ Route::get('/home', [HomeController::class, 'index'])
     ->name('client.home');
 
 
-// Route::get('/home', function () {
-//     return view('client.home');
-// })->middleware(['auth', 'verified'])->name('client.home');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/', [MaisonController::class, 'generalIndex'])->name('accueil');
-    Route::get('/maison/{id}/detail', [MaisonController::class, 'showDetail'])->name('maison.detail');
+    
+    Route::get('/maison/detail/{id}', [MaisonController::class, 'detail'])->name('maison.detail');
     Route::get('/maison-list', [MaisonListController::class, 'maisonList'])->name('maisonList.maisonList');
-    // Route::get('/search-maison', function (Request $request) {
-    //     return redirect()->route('maison.detail', ['id' => $request->maison_id]);
-    // })->name('maisons.redirectDetail');
     
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation/suivre-demande', [ReservationController::class, 'suivieDemande'])->name('reservation.suivieDemande');
+    Route::put('/reservation/suivre-demande/{id}', [ReservationController::class, 'updateRes'])->name('reservation.updateRes');
+
+    Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -54,10 +50,23 @@ Route::middleware(['auth', 'role:propriétaire'])->group(function(){
     Route::delete('/proprietaire/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
     
     // Routes CRUD maisons
+
     Route::get('/proprietaire/maisons', [MaisonController::class, 'index'])->name('maisons.index');
     Route::post('/proprietaire/maisons', [MaisonController::class, 'store'])->name('maisons.store');
     Route::put('/proprietaire/maisons/{id}', [MaisonController::class, 'update'])->name('maisons.update');
     Route::delete('/proprietaire/maisons/{id}', [MaisonController::class, 'destroy'])->name('maisons.destroy');
+    
+    // Routes gestion reservation
+    Route::get('/proprietaire/gestion-reservation', [ReservationController::class, 'reservationsMaisons'])->name('reservation.reservationsMaisons');
+    Route::put('/reservation/gestion-reservation/{id}', [ReservationController::class, 'gestionReservation'])->name('reservation.gestionReservation');
+    Route::put('/reservation/gestion-reservation/paiement/{id}', [ReservationController::class, 'paiement'])->name('reservation.paiement');
+    Route::delete('/proprietaire/gestion-reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+    
+    // Routes contrôle Avis
+    Route::get('/proprietaire/avis', [AvisController::class, 'index'])->name('avis.index');
+    Route::delete('/proprietaire/avis/{id}', [AvisController::class, 'destroy'])->name('avis.destroy');
+
+
 
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Maison;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -27,5 +28,132 @@ class ReservationController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Réservation envoyée avec succès.');
+    }
+    public function suivieDemande()
+    {
+       
+
+        $reservations = Reservation::where('client_id', Auth::id())->get();
+        $maisons = Maison::whereIn('id', $reservations->pluck('maison_id'))->get();
+        $noms = Maison::select('id', 'nom')->distinct()->get();
+   
+
+            $totals = [];
+
+        foreach ($reservations as $reservation) {
+            $maison = $maisons->where('id', $reservation->maison_id)->first();
+            if ($maison) {
+                $dateDebut = \Carbon\Carbon::parse($reservation->date_debut);
+                $dateFin = \Carbon\Carbon::parse($reservation->date_fin);
+                $nbJours = abs($dateFin->diffInDays($dateDebut, false));
+                $totals[$reservation->id] = $nbJours * $maison->prix_par_nuit;
+            }
+        }
+        return view('client.reservation-maisons', compact('reservations', 'maisons', 'noms', 'totals'));
+    }
+    public function updateRes(Request $request, $id)
+    {
+       
+        $res = Reservation::findOrFail($id);
+        $request->validate([
+            'date_debut'       => 'required|date',
+            'date_fin'         => 'required|date|after_or_equal:date_debut',
+            'nombre_personnes' => 'required|integer|min:1|max:'.$res->maison->capacite,
+            'statut'           => 'required|in:en attente,annulée',
+        ]);
+
+        $res->update($request->only([
+            'date_debut','date_fin','nombre_personnes','statut'
+        ]));
+       
+        return redirect()->route('reservation.suivieDemande')->with('success','Réservation mise à jour.');
+    }
+
+    public function reservationsMaisons()
+{
+    $userId = Auth::id();
+
+    // Récupérer toutes les maisons de l'utilisateur connecté
+    $maisons = Maison::where('user_id', $userId)->get();
+
+    // Récupérer toutes les réservations liées à ces maisons
+    $maisonIds = $maisons->pluck('id');
+    $reservations = Reservation::whereIn('maison_id', $maisonIds)
+                               ->with(['maison', 'client'])
+                               ->paginate(4);
+
+    $totals = [];
+
+    foreach ($reservations as $reservation) {
+        $maison = $maisons->where('id', $reservation->maison_id)->first();
+        if ($maison) {
+            $dateDebut = \Carbon\Carbon::parse($reservation->date_debut);
+            $dateFin = \Carbon\Carbon::parse($reservation->date_fin);
+            $nbJours = abs($dateFin->diffInDays($dateDebut, false));
+            $totals[$reservation->id] = $nbJours * $maison->prix_par_nuit;
+        }
+    }
+
+    return view('proprietaire.gerer-reservation', compact('reservations', 'totals'));
+}
+
+
+    public function gestionReservation(Request $request, $id)
+    {
+       
+        $res = Reservation::findOrFail($id);
+
+        // Vérifier si l'utilisateur connecté est bien le propriétaire de la maison
+        if ($res->maison->user_id !== Auth::id()) {
+            abort(403, 'Accès refusé. Vous n\'êtes pas autorisé à modifier cette réservation.');
+        }
+    
+        $request->validate([
+            'statut' => 'required|in:en attente,confirmée,annulée,refusée',
+        ]);
+    
+        $res->update([
+            'statut' => $request->statut,
+        ]);
+       
+        return redirect()->route('reservation.reservationsMaisons')->with('success','Statut mise à jour.');
+    }
+
+    public function paiement(Request $request, $id)
+    {
+       
+        $res = Reservation::findOrFail($id);
+
+        // Vérifier si l'utilisateur connecté est bien le propriétaire de la maison
+        if ($res->maison->user_id !== Auth::id()) {
+            abort(403, 'Accès refusé. Vous n\'êtes pas autorisé à modifier cette réservation.');
+        }
+    
+        $request->validate([
+            'is_paid' => 'required|in:0,1',
+        ]);
+    
+        $res->update([
+            'is_paid' => $request->is_paid,
+        ]);
+       
+        return redirect()->route('proprietaire.dashboard')->with('success','Paiement mise à jour.');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $reservation = Reservation::find($id);
+    
+            if (!$reservation) {
+                return redirect()->route('reservation.reservationsMaisons')->with('error', 'Réservation introuvable.');
+            }
+    
+            $reservation->delete();
+    
+            return redirect()->route('reservation.reservationsMaisons')->with('success', 'Réservation supprimée.');
+        } catch (\Exception $e) {
+            return redirect()->route('reservation.reservationsMaisons')->with('error', 'Erreur lors de la suppression de la Réservation.');
+        }
     }
 }

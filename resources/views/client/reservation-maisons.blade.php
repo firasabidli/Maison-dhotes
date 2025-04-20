@@ -62,7 +62,7 @@
                                 <ul id="suggestionList" class="list-group mt-2 shadow" style="display: none; position: absolute; width: 100%; max-height: 200px; overflow-y: auto; z-index: 999;">
                                     @foreach ($noms as $maison)
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor: pointer;">
-                                            <span class="suggestion-text" data-id="{{ $maisondet->id }}">{{ $maisondet->nom }}</span>
+                                            <span class="suggestion-text" data-id="{{ $maison->id }}">{{ $maison->nom }}</span>
                                             <span class="text-danger ml-2" onclick="removeSuggestion(this)">✖</span>
                                         </li>
                                     @endforeach
@@ -99,7 +99,9 @@
         </div>
     </div>
     <!-- Navbar End -->
+
     @include('client.components.alert')
+    
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -107,194 +109,84 @@
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="#">Home</a>
                     <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shop Detail</span>
+                    <span class="breadcrumb-item active">Shopping Cart</span>
                 </nav>
             </div>
         </div>
     </div>
     <!-- Breadcrumb End -->
- 
 
-    <!-- Shop Detail Start -->
-    <div class="container-fluid pb-5">
-        <div class="row px-xl-5">
-            <div class="col-lg-5 mb-30">
-                <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner bg-light">
-                        @if (!empty($images) && count($images) > 0)
-                            @foreach ($images as $key => $image)
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img class="w-100 h-100" 
-                                        src="{{ asset('storage/public/maisons/' . basename($image)) }}" 
-                                        alt="Image de la maison">
+
+    <!-- Cart Start -->
+    <div class="container-fluid">
+        <div class=" px-xl-5">
+           
+            <div class=" table-responsive mb-5">
+            <table class="table table-light table-borderless table-hover text-center mb-0">
+        <thead class="thead-dark">
+            <tr>
+                <th>Images</th>
+                <th>Maison d'Hôte</th>
+                <th>Ville</th>
+                <th>Adresse</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Statut</th>
+                <th>Prix Par Nuit</th>
+                <th>Total</th>
+                <th>Modifier Réservation</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            @foreach ($reservations as $reservation)
+                @php
+                    $maison = $reservation->maison;
+                @endphp
+                <tr>
+                    <td class="align-middle">
+                        @if ($maison->images && count($maison->images) > 0)
+                            <div id="carousel-{{ $reservation->id }}" class="carousel slide" data-ride="carousel" style="width: 100px; height: 100px; padding: 10px; margin: 0 auto;">
+                                <div class="carousel-inner bg-light">
+                                    @foreach ($maison->images as $index => $image)
+                                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                            <img class="w-100 h-100" src="{{ asset('storage/public/maisons/' . basename($image)) }}" alt="Image">
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
                         @else
-                        
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" 
-                                    src="{{ asset('img/logo-dashboard.png') }}" 
-                                    alt="Image par défaut">
-                            </div>
+                            <span>Aucune image</span>
                         @endif
-                    </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
-                    </a>
-                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
-                </div>
+                    </td>
+                <td class="align-middle">{{ $maison->nom }}</td>
+                <td class="align-middle">{{ $maison->ville }}</td>
+                <td class="align-middle">{{ $maison->adresse }}</td>
+                <td class="align-middle">{{ $reservation->date_debut }}</td>
+                <td class="align-middle">{{ $reservation->date_fin }}</td>
+                <td class="align-middle">{{ $reservation->statut }}</td>
+                <td class="align-middle">{{ $maison->prix_par_nuit }} TND</td>
+                <td class="align-middle">{{ $totals[$reservation->id] ?? 'N/A' }} TND</td>
+                <td class="align-middle">
+                    <button href="" class="btn btn-sm btn-warning" data-modal-target="modal-reservation{{ $reservation->id }}">
+                        <i class="fa fa-edit"></i> Modifier
+                    </button>
+                </td>
+            </tr>
+            @include('client.components.modal.edit-reservation-modal', ['reservation' => $reservation])
+        @endforeach
+    </tbody>
+</table>
+
             </div>
-
-
-            <div class="col-lg-7 h-auto mb-30">
-                <div class="h-100 bg-light p-30">
-                <h3>{{ $maisondet->nom . ' ' . $categorie->nom }}</h3>
-                    <h4 class="text-muted">{{ $maisondet->ville . ' ' . $maisondet->adresse }}</h4>
-                    <small class="text-muted">
-                        Capacité : {{ $maisondet->capacite }} personne{{ $maisondet->capacite > 1 ? 's' : '' }}
-                    </small>
-
-                    <div class="d-flex mb-3">
-                        <div class="text-primary mr-2">
-                            @php
-                                $fullStars = floor($averageRating);
-                                $halfStar = ($averageRating - $fullStars) >= 0.5;
-                                $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
-                            @endphp
-
-                            @for ($i = 0; $i < $fullStars; $i++)
-                                <small class="fas fa-star"></small>
-                            @endfor
-
-                            @if ($halfStar)
-                                <small class="fas fa-star-half-alt"></small>
-                            @endif
-
-                            @for ($i = 0; $i < $emptyStars; $i++)
-                                <small class="far fa-star"></small>
-                            @endfor
-                        </div>
-                        <small class="pt-1">({{ $reviewsCount }} avis)</small>
-                    </div>
-
-                    <h3 class="font-weight-semi-bold mb-4">{{ $maisondet->prix_par_nuit }} TND/nuit</h3>
-                   
-                    
-                   
-                    <div class="d-flex align-items-center mb-4 pt-2">
-                    <button class="btn btn-primary px-3"  data-modal-target="modal-reservation{{ $maisondet->id }}"><i class="fas fa-calendar-plus"></i> Reserver</button>
-                        
-                    </div>
-                    <div class="d-flex pt-2">
-                        <strong class="text-dark mr-2">Share on:</strong>
-                        <div class="d-inline-flex">
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-pinterest"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="bg-light p-30">
-                    <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                        
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Avis ({{ $maisondet->avis->count() }})</a>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
-                            <h4 class="mb-3">Maison Description</h4>
-                            <p>{{ $maisondet->description }}</p>
-                          
-                        </div>
-                        
-                        <div class="tab-pane fade" id="tab-pane-2">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 class="mb-4">{{ $maisondet->avis->count() }} avis pour <strong>{{ $maisondet->nom }}</strong></h4>
-                                    
-                                    @forelse ($maisondet->avis as $avis)
-                                        <div class="media mb-4">
-                                            <img src="{{ $avis->user->avatar ? asset('storage/public/avatars/' . basename($avis->user->avatar)) : asset('img/noprofil.jpg') }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                            <div class="media-body">
-                                                <h6>
-                                                    {{ $avis->user->name ?? 'Utilisateur' }}
-                                                    <small> - <i>{{ $avis->created_at->format('d M Y') }}</i></small>
-                                                </h6>
-                                                <div class="text-primary mb-2">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        @if ($i <= $avis->note)
-                                                            <i class="fas fa-star"></i>
-                                                        @else
-                                                            <i class="far fa-star"></i>
-                                                        @endif
-                                                    @endfor
-                                                </div>
-                                                <p>{{ $avis->commentaire }}</p>
-                                            </div>
-                                        </div>
-                                    @empty
-                                        <p>Aucun avis pour le moment.</p>
-                                    @endforelse
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h4 class="mb-4">Laisser un avis</h4>
-                                    <small> Champ Obligatoire *</small>
-                                    
-                                    <form method="POST" action="{{ route('avis.store') }}">
-                                    @csrf
-                                        <input type="hidden" name="maison_id" value="{{ $maisondet->id }}">
-    
-                                        
-
-                                        <div class="d-flex my-4 ">
-                                            <p class="mb-0 mr-2">Votre Note *</p>
-                                            <div class="star-rating d-flex flex-row-reverse justify-content-start">
-                                                @for ($i = 5; $i >= 1; $i--)
-                                                    <input type="radio" id="star{{ $i }}" name="note" value="{{ $i }}">
-                                                    <label for="star{{ $i }}"><i class="fas fa-star"></i></label>
-                                                @endfor
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="message">Votre Commentaire *</label>
-                                            <textarea name="commentaire" id="commentaire"  cols="30" rows="5" class="form-control" required></textarea>
-                                        </div>
-                                        
-                                        <div class="form-group mb-0">
-                                            <input type="submit" value="Laisser un avis" class="btn btn-primary px-3">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
-    <!-- Shop Detail End -->
-     
-    @include('client.components.modal.reservation-modal', ['maison' => $maison])
+    <!-- Cart End -->
+
+
    
-      <!-- Footer Start -->
-<div class="container-fluid bg-dark text-secondary  pt-5">
+ <!-- Footer Start -->
+ <div class="container-fluid bg-dark text-secondary  pt-5">
     <div class="row px-xl-5 ">
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
             <h5 class="text-secondary text-uppercase mb-4">Nous Contacter</h5>

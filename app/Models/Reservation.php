@@ -16,8 +16,13 @@ class Reservation extends Model
         'date_fin',
         'nombre_personnes',
         'statut',
+        'is_paid',
     ];
 
+    protected $casts = [
+        'is_paid' => 'boolean',
+    ];
+    
     public function maison()
     {
         return $this->belongsTo(Maison::class);
@@ -25,6 +30,7 @@ class Reservation extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class, 'client_id');
     }
+
 }

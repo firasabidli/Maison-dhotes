@@ -8,12 +8,13 @@ class Maison extends Model
 {
     protected $fillable = [
         'nom', 'description', 'adresse', 'ville', 'prix_par_nuit',
-        'capacite', 'disponible', 'category_id', 'user_id', 'images'
+        'capacite', 'disponible', 'nb_demande', 'category_id', 'user_id', 'images'
     ];
 
     protected $casts = [
         'images' => 'array',
         'disponible' => 'boolean',
+        
     ];
 
     public function categorie()
@@ -25,4 +26,15 @@ class Maison extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function avis()
+    {
+        return $this->hasMany(Avis::class);
+    }
+
 }

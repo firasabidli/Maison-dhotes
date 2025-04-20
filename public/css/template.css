@@ -399,7 +399,22 @@ svg {
 .btn-success:hover {
   background-color: #218838;
 }
-
+/* avis note étoile */
+.star-rating input[type="radio"] {
+  display: none;
+}
+.star-rating label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+.star-rating input[type="radio"]:checked ~ label {
+  color: #f5c518;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f5c518;
+}
 /* alert */
 
 .custom-alert {

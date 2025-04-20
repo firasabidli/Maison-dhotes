@@ -105,7 +105,7 @@ function showSuggestions() {
             list.classList.remove("show");
 
             // Rediriger vers la page détail
-            window.location.href = "/maison/" + id + "/detail"; // Adapte si nécessaire selon ta route
+            window.location.href = "/maison/detail/" + id ; // Adapte si nécessaire selon ta route
         };
     });
 }

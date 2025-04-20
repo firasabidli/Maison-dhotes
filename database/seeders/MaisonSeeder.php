@@ -21,9 +21,10 @@ class MaisonSeeder extends Seeder
                 'prix_par_nuit' => 180.00,
                 'capacite' => 4,
                 'disponible' => true,
+                'nb_demande' => 4,
                 'category_id' => 1,
                 'user_id' => 1,
-                'images' => ['maison1.jpg', 'maison2.jpg'],
+                
             ],
             [
                 'nom' => 'Villa Palmier',
@@ -33,9 +34,10 @@ class MaisonSeeder extends Seeder
                 'prix_par_nuit' => 250.00,
                 'capacite' => 6,
                 'disponible' => true,
+                'nb_demande' => 2,
                 'category_id' => 2,
                 'user_id' => 1,
-                'images' => ['villa1.jpg'],
+               
             ],
             [
                 'nom' => 'Maison Jardin',
@@ -45,9 +47,10 @@ class MaisonSeeder extends Seeder
                 'prix_par_nuit' => 100.00,
                 'capacite' => 3,
                 'disponible' => false,
+                'nb_demande' => 6,
                 'category_id' => 1,
                 'user_id' => 1,
-                'images' => ['jardin1.jpg', 'jardin2.jpg'],
+               
             ],
             [
                 'nom' => 'Dar Traditionnelle',
@@ -57,9 +60,10 @@ class MaisonSeeder extends Seeder
                 'prix_par_nuit' => 120.00,
                 'capacite' => 5,
                 'disponible' => true,
+                'nb_demande' => 8,
                 'category_id' => 3,
                 'user_id' => 1,
-                'images' => ['dar1.jpg'],
+                
             ],
             [
                 'nom' => 'Résidence Soleil',
@@ -69,9 +73,10 @@ class MaisonSeeder extends Seeder
                 'prix_par_nuit' => 90.00,
                 'capacite' => 2,
                 'disponible' => true,
+                'nb_demande' => 7,
                 'category_id' => 2,
                 'user_id' => 1,
-                'images' => ['soleil1.jpg'],
+                
             ],
         ];
 

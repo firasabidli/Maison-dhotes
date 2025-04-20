@@ -39,6 +39,8 @@ class RegisteredUserController extends Controller
             ],
             'role' => ['required', 'in:client,propriétaire'],
             'avatar' => ['nullable', 'image', 'max:2048'], // avatar est optionnel
+            'num_tel' => ['required',  'unique:users,num_tel', 'regex:/^[0-9]{8}$/'],
+            'adresse' => ['required', 'string', 'min:3', 'max:255'],
         ], [
             'name.min' => "Le nom doit contenir au moins 3 caractères.",
             'email.email' => "Veuillez entrer une adresse e-mail valide.",
@@ -47,6 +49,8 @@ class RegisteredUserController extends Controller
             'password.regex' => "Le mot de passe doit contenir au moins une majuscule et un chiffre.",
             'password.confirmed' => "Les mots de passe ne correspondent pas.",
             'role.in' => "Le rôle sélectionné est invalide.",
+            'num_tel.regex' => "Le numéro de téléphone doit contenir exactement 8 chiffres.",
+            'name.min' => "L'adresse doit contenir au moins 3 caractères.",
         ]);
 
         if ($validator->fails()) {
@@ -80,6 +84,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'avatar' => $avatarUrl,
+            'num_tel'=> $request->num_tel,
+            'adresse'=> $request->adresse,
         ]);
 
         event(new Registered($user));

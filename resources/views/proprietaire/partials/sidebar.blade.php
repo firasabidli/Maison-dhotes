@@ -2,49 +2,39 @@
     <ul class="sidebar--items">
         <li>
             <a href="{{ route('proprietaire.dashboard') }}" class="{{ Request::is('proprietaire/dashboard') ? 'active--link' : '  text--dark' }}"  >
-                <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
                 <span class="sidebar--item">Dashboard</span>
             </a>
         </li>
         <li>
             <a href="{{ route('category.index') }}" class="{{ Request::is('proprietaire/categories') ? 'active--link ' : '  text--dark' }}"  >
-                <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                <span class="icon icon-2"><i class="ri-home-gear-fill"></i></span>
                 <span class="sidebar--item">Catégories</span>
             </a>
         </li>
         <li>
             <a href="{{ route('maisons.index') }}" class="{{ Request::is('proprietaire/maisons') ? 'active--link ' : '  text--dark' }}"  >
-                <span class="icon icon-3"><i class="ri-user-2-line"></i></span>
+                <span class="icon icon-3"><i class="ri-home-heart-fill"></i></span>
                 <span class="sidebar--item" style="white-space: nowrap;">Maisons d'Hôte</span>
             </a>
         </li>
         <li>
-            <a href="#" class="{{ Request::is('proprietaire/patients') ? 'active--link ' : '  text--dark' }}"  >
-                <span class="icon icon-4"><i class="ri-user-line"></i></span>
-                <span class="sidebar--item">Patients</span>
+            <a href="{{ route('reservation.reservationsMaisons') }}" class="{{ Request::is('proprietaire/gestion-reservation') ? 'active--link ' : '  text--dark' }}"  >
+                <span class="icon icon-4"><i class="ri-reserved-fill"></i></span>
+                <span class="sidebar--item">Réservation</span>
             </a>
         </li>
         <li>
-            <a href="#" class="{{ Request::is('proprietaire/activity') ? 'active--link ' : '  text--dark' }}"  >
+            <a href="{{ route('avis.index') }}" class="{{ Request::is('proprietaire/avis') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-5"><i class="ri-line-chart-line"></i></span>
-                <span class="sidebar--item">Activity</span>
+                <span class="sidebar--item">Contrôle Avis</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="{{ Request::is('proprietaire/support') ? 'active--link ' : '  text--dark' }}"  >
-                <span class="icon icon-6"><i class="ri-customer-service-line"></i></span>
-                <span class="sidebar--item">Support</span>
-            </a>
-        </li>
+        
     </ul>
     
     <ul class="sidebar--bottom-items">
-    <li class="notif">
-            <a href="#" class="text--dark notif-picon notif-bell"  >
-                <span class="icon icon-7"><i class="ri-notification-2-line"></i></span>
-                <span class="sidebar--item">Notification</span>
-            </a>
-        </li>
+    
         <li class="notif">
             <a href="#" class="text--dark notif-picon notif-chat"  >
                 <span class="icon icon-7"> <i class="ri-wechat-2-line"></i></span>

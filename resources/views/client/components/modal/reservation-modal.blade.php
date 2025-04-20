@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                     <label>Nombre de personnes</label>
-                    <input type="number" name="nombre_personnes" class="form-control" required min="1">
+                    <input type="number" name="nombre_personnes" class="form-control" required min="1" max="{{$maison->capacite}}">
                 </div>
             </div>
             <button type="submit" class="btn submit-btn">Réserver</button>

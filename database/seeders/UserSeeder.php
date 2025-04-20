@@ -18,21 +18,27 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123456'),
-            'role' => 'admin'
+            'role' => 'admin',
+            'num_tel' => '+216 12345678',
+            'adresse' => 'Tunis',
         ]);
 
         User::create([
             'name' => 'propriétaire',
             'email' => 'proprietaire@gmail.com',
             'password' => Hash::make('123456'),
-            'role' => 'propriétaire'
+            'role' => 'propriétaire',
+            'num_tel' => '+216 87654321',
+            'adresse' => 'Tunis',
         ]);
 
         User::create([
             'name' => 'Client',
             'email' => 'client@gmail.com',
             'password' => Hash::make('123456'),
-            'role' => 'client'
+            'role' => 'client',
+            'num_tel' => '+216 87651234',
+            'adresse' => 'Tunis',
         ]);
     }
 }

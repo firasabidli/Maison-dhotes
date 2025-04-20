@@ -1,7 +1,8 @@
 <section class="header">
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
-        <h2>Med<span>Ex</span></h2>
+    <span> <img src="{{ asset('img/logo-dashboard.png') }}" class="logoApp" alt="">
+    </span>   
     </div>
     <div class="search--notification--profile">
         <div class="search">
@@ -19,16 +20,12 @@
 
             <!-- Ajout du dropdown -->
             <div class="profile-dropdown " >
-                <button id="profile-btn" class="profile-btn">
+                <div  class="profile-btn">
                     
-                    <img src="{{ asset('img/noprofil.jpg') }}" alt="Profile">
-                    <span>John Doe ▼</span>
-                </button>
-                <ul id="profile-menu" class="profile-menu">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Paramètres</a></li>
-                    <li><a href="#">Déconnexion</a></li>
-                </ul>
+                    <img src="{{ Auth::user()->avatar ? asset('storage/public/avatars/' . basename(Auth::user()->avatar)) : asset('img/noprofil.jpg') }}" alt="Profile">
+                    <span>{{ Auth::user()->name }}</span>
+                </div>
+                
             </div>
         </div>
     </div>

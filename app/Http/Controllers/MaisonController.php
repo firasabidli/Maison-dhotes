@@ -20,14 +20,22 @@ class MaisonController extends Controller
     
         return view('proprietaire.maisons', compact('maisons'));
     }
+
+   
+
+   
+
     
-    public function showDetail($id)
+    public function detail($id)
     {
-        $maison = Maison::with('categorie', 'user')->findOrFail($id);
+        $maison = Maison::findOrFail($id);
         $categorie = Category::find($maison->category_id);
+        $maisondet = $maison;
         $images = $maison->images; // Récupère les images de la maison
         $noms = Maison::select('id', 'nom')->distinct()->get();
-        return view('client.detail-maison', compact('maison', 'categorie', 'images', 'noms'));
+        $averageRating = $maisondet->avis->avg('note') ?? 0;
+        $reviewsCount = $maisondet->avis->count();
+        return view('client.detail-maison', compact('maisondet', 'categorie', 'images', 'noms', 'averageRating', 'reviewsCount'));
     }
 
     

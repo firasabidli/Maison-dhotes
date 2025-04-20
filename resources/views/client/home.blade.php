@@ -20,7 +20,8 @@
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+   
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/template.css') }}" rel="stylesheet">
 </head>
@@ -41,9 +42,9 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="{{ route('client.home') }}" class="nav-item nav-link active">Home</a>
                             <a href="{{ route('maisonList.maisonList') }}" class="nav-item nav-link">Mison d'Hôtes</a>
-                            <a href="#" class="nav-item nav-link">Réservation</a>
+                            <a href="{{ route('reservation.suivieDemande') }}" class="nav-item nav-link">Réservation</a>
                             
                             <a href="#contact" class="nav-item nav-link">Contact</a>
                         </div>
@@ -183,7 +184,7 @@
     <div class="row px-xl-5 pb-3">
         @foreach($categories as $category)
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-        <a class="text-decoration-none" href=""> 
+        <a class="text-decoration-none" href="#"> 
                 <div class="cat-item img-zoom d-flex align-items-center mb-4">
                     <div class="overflow-hidden" style="width: 100px; height: 100px;">
                         <img src="{{ asset('storage/'.$category->image) }}" class="img-fluid" alt="">
@@ -204,7 +205,7 @@
 <!-- Maison d'hôtes Start -->
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-        <span class="bg-secondary pr-3">Maisons d'hôtes</span>
+        <span class="bg-secondary pr-3">Maisons d'hôtes Les plus demandée</span>
     </h2>
     <div class="row px-xl-5">
     @foreach ($maisons as $maison)
@@ -212,11 +213,11 @@
         <div class="product-item bg-light mb-4">
             <div class="product-img position-relative overflow-hidden">
                 <img class="img-fluid" 
-                     src="{{ asset('storage/public/maisons/' . basename($maison->images[0])) }}" 
+                     src="{{ isset($maison->images[0]) ? asset('storage/public/maisons/' . basename($maison->images[0])) : asset('img/logo-dashboard.png') }}" 
                      alt="Image de la maison"> 
             </div>
             <div class="product-action">
-                <button class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fa fa-shopping-cart"></i></button>
+                <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fas fa-calendar-plus"></i></a>
                 <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
             </div>
             <div class="text-center py-4">
@@ -225,14 +226,35 @@
                 <div class="d-flex align-items-center justify-content-center mt-2">
                     <h5>{{ $maison->prix_par_nuit }} TND/nuit</h5>
                 </div>
+                <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                           
+                        </div>
+                        <small class="pt-1"></small>
+                    </div>
                 <div class="d-flex align-items-center justify-content-center mb-1">
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star text-primary mr-1"></small>
-                    <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                    <small>(99)</small>
+                            @php
+                            $averageRating = $maison->avis->avg('note') ?? 0;
+                            $reviewsCount = $maison->avis->count();
+                                $fullStars = floor($averageRating);
+                                $halfStar = ($averageRating - $fullStars) >= 0.5;
+                                $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                            @endphp
+
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <small class="fas fa-star text-primary"></small>
+                            @endfor
+
+                            @if ($halfStar)
+                                <small class="fas fa-star-half-alt text-primary"></small>
+                            @endif
+
+                            @for ($i = 0; $i < $emptyStars; $i++)
+                                <small class="far fa-star "></small>
+                            @endfor
+                    <small>({{ $reviewsCount }} avis)</small>
                 </div>
+                <small><i class="ri-bar-chart-fill card--icon stat--icon"></i>{{$maison->nb_demande}}</small>
             </div>
         </div>
     </div>

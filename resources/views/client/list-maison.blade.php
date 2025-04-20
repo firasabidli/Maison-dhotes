@@ -365,10 +365,10 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                             <div class="product-item bg-light mb-4">
                                 <div class="product-img position-relative overflow-hidden">
-                                    <img class="img-fluid w-100" src="{{ asset('storage/public/maisons/' . basename($maison->images[0])) }}" 
+                                    <img class="img-fluid w-100" src="{{ isset($maison->images[0]) ? asset('storage/public/maisons/' . basename($maison->images[0])) : asset('img/logo-dashboard.png') }}" 
                                     alt="Image de la maison"> 
                                     <div class="product-action">
-                                    <button class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fa fa-shopping-cart"></i></button>
+                                    <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fas fa-calendar-plus"></i></a>
                                         
                                         <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
                                     </div>
@@ -381,12 +381,26 @@
                                     <h5>{{ $maison->prix_par_nuit }} TND/nuit</h5>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="far fa-star text-primary mr-1"></small>
-                                        <small class="far fa-star text-primary mr-1"></small>
-                                        <small>(99)</small>
+                                            @php
+                                                $averageRating = $maison->avis->avg('note') ?? 0;
+                                                $reviewsCount = $maison->avis->count();
+                                                    $fullStars = floor($averageRating);
+                                                    $halfStar = ($averageRating - $fullStars) >= 0.5;
+                                                    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                                            @endphp
+
+                                                @for ($i = 0; $i < $fullStars; $i++)
+                                                    <small class="fas fa-star text-primary"></small>
+                                                @endfor
+
+                                                @if ($halfStar)
+                                                    <small class="fas fa-star-half-alt text-primary"></small>
+                                                @endif
+
+                                                @for ($i = 0; $i < $emptyStars; $i++)
+                                                    <small class="far fa-star "></small>
+                                                @endfor
+                                        <small>({{ $reviewsCount }} avis)</small>
                                     </div>
                                 </div>
                             </div>

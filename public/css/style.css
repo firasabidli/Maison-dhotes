@@ -128,18 +128,22 @@ main {
   position: relative;
   width: 100%;
   max-width: 1020px;
-  height: 640px;
+  height: 700px;
   background-color: #323232;
   border-radius: 3.3rem;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
-  
+  transition: height 0.3s ease;
+}
+
+.box.box-errors {
+  height: 900px;
 }
 
 .inner-box {
   position: absolute;
   width: calc(100% - 4.1rem);
   height: calc(100% - 4.1rem);
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

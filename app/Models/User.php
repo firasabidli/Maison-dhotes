@@ -23,7 +23,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'avatar'
+        'avatar',
+        'num_tel',
+        'adresse'
+
     ];
 
     /**
@@ -48,4 +51,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function maisons()
+    {
+        return $this->hasMany(Maison::class);
+    }
+    
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'client_id');
+    }
+
+    public function avis()
+    {
+        return $this->hasMany(Avis::class);
+    }
+
 }

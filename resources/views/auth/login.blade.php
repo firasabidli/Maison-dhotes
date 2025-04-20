@@ -19,7 +19,7 @@
         
 
 
-        <div class="box">
+        <div class="box {{ session()->has('register_errors') ? 'box-errors' : '' }}"">
        
             <div class="inner-box">
                 <div class="forms-wrap">
@@ -90,7 +90,7 @@
                     </form>
 
                     <!-- Formulaire d'inscription -->
-                    <form method="POST" action="{{ route('register') }}" autocomplete="off" enctype="multipart/form-data" class="sign-up-form">
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off" enctype="multipart/form-data" class="sign-up-form" >
                         @csrf
 
                         <div class="heading">
@@ -99,7 +99,7 @@
                             <a href="#" class="toggle">Se connecter</a>
                         </div>
 
-                        <div class="actual-form">
+                        <div class="actual-form" >
                             <!-- Avatar -->
                             <div class="upload">
                                 <img id="avatarPreview" src="{{ asset('img/noprofil.jpg') }}" width="100" height="100" alt="Avatar">
@@ -136,7 +136,28 @@
                                     <small class="error-message">{{ $message }}</small>
                                 @enderror
                             </div> 
-                         
+                         <!-- Numéro du téléphone-->
+                         <div class="input-wrap">
+                                <input type="text" name="num_tel" class="input-field " required autocomplete="off" value="{{ old('num_tel') }}" />
+                                <label>Numéro du téléphone</label>
+                               
+                            </div>
+                            <div class="  mb-4">
+                            @error('num_tel')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div> 
+                            <!-- Adresse -->
+                            <div class="input-wrap">
+                                <input type="text" name="adresse" class="input-field " required autocomplete="off" value="{{ old('adresse') }}" />
+                                <label>Adresse</label>
+                               
+                            </div>
+                            <div class="  mb-4">
+                            @error('adresse')
+                                    <small class="error-message">{{ $message }}</small>
+                                @enderror
+                            </div> 
                                 <!-- Mot de passe -->
                                 <div class="input-wrap">
                                     <input type="password" name="password" class="input-field password-field" required autocomplete="off" />
