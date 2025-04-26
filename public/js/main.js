@@ -184,3 +184,25 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+// upload avatar => remplacer l'image sélectionné au lieu de l'image noprofil.jpg
+
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.querySelector(".upload input[type='file']");
+    const imgPreview = document.querySelector(".upload img");
+  
+    fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+  
+        if (file) {
+            const reader = new FileReader();
+  
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+            };
+  
+            reader.readAsDataURL(file);
+        }
+    });
+  });

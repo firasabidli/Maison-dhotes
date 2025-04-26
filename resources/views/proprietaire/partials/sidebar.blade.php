@@ -42,7 +42,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="{{ Request::is('proprietaire/settings') ? 'active--link ' : '  text--dark' }}"  >
+            <a href="{{ route('profil.settings') }}" class="{{ Request::is('/profil') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-7"><i class="ri-settings-3-line"></i></span>
                 <span class="sidebar--item">Settings</span>
             </a>

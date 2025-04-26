@@ -3,7 +3,6 @@
  * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
   --blue: #007bff;
@@ -65,7 +64,7 @@ body {
 }
 .profil-name:hover {
   border-bottom: none;
-  color: #FFD333;
+  color: #dcdcdc;
   cursor: pointer;
 }
 
@@ -349,6 +348,7 @@ svg {
 /* Style général des inputs et selects */
 .form-group select,
 .form-group input[type="text"],
+.form-group input[type="email"],
 .form-group input[type="number"],
 .form-group textarea {
   padding: 10px;
@@ -2679,40 +2679,40 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
-.btn-primary {
+.btn--primary {
   color: #212529;
   background-color: #FFD333;
   border-color: #FFD333;
 }
 
-.btn-primary:hover {
+.btn--primary:hover {
   color: #212529;
   background-color: #ffcb0d;
   border-color: #ffc800;
 }
 
-.btn-primary:focus, .btn-primary.focus {
+.btn--primary:focus, .btn--primary.focus {
   color: #212529;
   background-color: #ffcb0d;
   border-color: #ffc800;
   box-shadow: 0 0 0 0.2rem rgba(222, 185, 50, 0.5);
 }
 
-.btn-primary.disabled, .btn-primary:disabled {
+.btn--primary.disabled, .btn--primary:disabled {
   color: #212529;
   background-color: #FFD333;
   border-color: #FFD333;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
-.show > .btn-primary.dropdown-toggle {
+.btn--primary:not(:disabled):not(.disabled):active, .btn--primary:not(:disabled):not(.disabled).active,
+.show > .btn--primary.dropdown-toggle {
   color: #212529;
   background-color: #ffc800;
   border-color: #f2be00;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
-.show > .btn-primary.dropdown-toggle:focus {
+.btn--primary:not(:disabled):not(.disabled):active:focus, .btn--primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn--primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(222, 185, 50, 0.5);
 }
 
@@ -6609,6 +6609,7 @@ button.bg-dark:focus {
 
 .rounded-circle {
   border-radius: 50% !important;
+  cursor: pointer;
 }
 
 .rounded-pill {
@@ -9583,11 +9584,11 @@ button.bg-dark:focus {
   color: #fff !important;
 }
 
-.text-primary {
+.text--primary {
   color: #FFD333 !important;
 }
 
-a.text-primary:hover, a.text-primary:focus {
+a.text--primary:hover, a.text--primary:focus {
   color: #e6b400 !important;
 }
 
@@ -9792,7 +9793,7 @@ a.text-dark:hover, a.text-dark:focus {
   padding: 30px;
 }
 
-.btn.btn-primary {
+.btn.btn--primary {
   color: #3D464D !important;
 }
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaisonListController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AvisController;
+use App\Http\Controllers\ProfilController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/reservation/suivre-demande/{id}', [ReservationController::class, 'updateRes'])->name('reservation.updateRes');
 
     Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
+    
+    Route::get('/profil', [ProfilController::class, 'settings'])->name('profil.settings');
+    Route::put('/profil/modifier-profil/{id}', [ProfilController::class, 'updateProfile'])->name('profil.updateProfile');
+    Route::put('/profil/change-password/{id}', [ProfilController::class, 'changePassword'])->name('profil.changePassword');
 
 });
 
@@ -66,7 +71,7 @@ Route::middleware(['auth', 'role:propriétaire'])->group(function(){
     Route::get('/proprietaire/avis', [AvisController::class, 'index'])->name('avis.index');
     Route::delete('/proprietaire/avis/{id}', [AvisController::class, 'destroy'])->name('avis.destroy');
 
-
+   
 
 });
 
