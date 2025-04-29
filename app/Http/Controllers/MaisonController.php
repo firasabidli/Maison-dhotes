@@ -21,11 +21,7 @@ class MaisonController extends Controller
         return view('proprietaire.maisons', compact('maisons'));
     }
 
-   
-
-   
-
-    
+  
     public function detail($id)
     {
         $maison = Maison::findOrFail($id);

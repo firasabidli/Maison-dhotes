@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class RegisteredUserController extends Controller
@@ -26,6 +27,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Str::startsWith($request->num_tel, '+216')) {
+            $request->merge([
+                'num_tel' => '+216' . preg_replace('/\s+/', '', $request->num_tel)
+            ]);
+        }
         // Validation des champs
         $validator = \Validator::make($request->all(), [
             'name' => ['required', 'string', 'min:3', 'max:255'],
@@ -38,8 +44,8 @@ class RegisteredUserController extends Controller
                 'regex:/[0-9]/'  // Chiffre
             ],
             'role' => ['required', 'in:client,propriétaire'],
-            'avatar' => ['nullable', 'image', 'max:2048'], // avatar est optionnel
-            'num_tel' => ['required',  'unique:users,num_tel', 'regex:/^[0-9]{8}$/'],
+            'avatar' => ['nullable', 'image'], // avatar est optionnel
+            'num_tel' => ['required', 'regex:/^\+216[0-9]{8}$/', 'unique:users,num_tel'],
             'adresse' => ['required', 'string', 'min:3', 'max:255'],
         ], [
             'name.min' => "Le nom doit contenir au moins 3 caractères.",
@@ -49,7 +55,7 @@ class RegisteredUserController extends Controller
             'password.regex' => "Le mot de passe doit contenir au moins une majuscule et un chiffre.",
             'password.confirmed' => "Les mots de passe ne correspondent pas.",
             'role.in' => "Le rôle sélectionné est invalide.",
-            'num_tel.regex' => "Le numéro de téléphone doit contenir exactement 8 chiffres.",
+            'num_tel.regex' => 'Le numéro doit être sous la forme +216XXXXXXXX.',
             'name.min' => "L'adresse doit contenir au moins 3 caractères.",
         ]);
 

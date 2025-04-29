@@ -32,8 +32,5 @@ class ProprietaireController extends Controller
         
     }
 
-    // public function page2()
-    // {
-    //     return view('proprietaire.page2');
-    // }
+   
 }

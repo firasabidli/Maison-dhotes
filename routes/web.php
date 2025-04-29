@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
@@ -41,7 +41,32 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/page2', [AdminController::class, 'page2'])->name('admin.page2');
+   // Routes CRUD Catégories
+
+   Route::get('/admin/categories', [AdminController::class, 'categoryIndex'])->name('admin.categoryIndex');
+   Route::post('/admin/categories', [AdminController::class, 'categoryStore'])->name('admin.categoryStore');
+   Route::put('/admin/categories/{id}', [AdminController::class, 'categoryUpdate'])->name('admin.categoryUpdate');
+   Route::delete('/admin/categories/{id}', [AdminController::class, 'categoryDestroy'])->name('admin.categoryDestroy');
+   
+   // Routes CRUD maisons
+
+   Route::get('/admin/maisons', [AdminController::class, 'maisonsIndex'])->name('admin.maisonsIndex');
+   Route::post('/admin/maisons', [AdminController::class, 'maisonsStore'])->name('admin.maisonsStore');
+   Route::put('/admin/maisons/{id}', [AdminController::class, 'maisonsUpdate'])->name('admin.maisonsUpdate');
+   Route::delete('/admin/maisons/{id}', [AdminController::class, 'maisonsDestroy'])->name('admin.maisonsDestroy');
+   
+    // Routes contrôle Avis
+   Route::get('/admin/avis', [AdminController::class, 'avisIndex'])->name('admin.avisIndex');
+   Route::delete('/admin/avis/{id}', [AdminController::class, 'avisDestroy'])->name('admin.avisDestroy');
+
+    // Routes Gestion Utilisateurs
+    
+    Route::get('/admin/gestion-utilisateurs', [AdminController::class, 'usersIndex'])->name('admin.usersIndex');
+    Route::post('/admin/gestion-utilisateurs', [AdminController::class, 'addUser'])->name('admin.addUser');
+    Route::put('/admin/gestion-utilisateurs/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
+    Route::delete('/admin/gestion-utilisateurs/{id}', [AdminController::class, 'userDestroy'])->name('admin.userDestroy');
+    
+    
 });
 
 Route::middleware(['auth', 'role:propriétaire'])->group(function(){

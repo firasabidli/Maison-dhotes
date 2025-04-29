@@ -2,7 +2,7 @@
     <div class="formContent">
         <span class="close">&times;</span>
         <h3>Ajouter une maison d'hôtes</h3>
-        <form action="{{ route('maisons.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.maisonsStore') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-grid">

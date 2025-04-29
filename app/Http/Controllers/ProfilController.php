@@ -64,7 +64,7 @@ class ProfilController extends Controller
             $avatarUrl = $user->avatar;
         }
 
-        // Ajout +216 à num_tel
+        
        
         $user->update([
             'name' => $request->name,
