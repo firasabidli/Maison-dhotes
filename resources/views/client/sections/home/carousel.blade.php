@@ -52,7 +52,7 @@
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Maisons d’Hôtes</h6>
                         <h3 class="text-white mb-3">Réservez en Tunisie</h3>
-                        <a href="{{ route('maisonList.maisonList') }}" class="btn btn-primary">Explorer</a>
+                        <a href="{{ route('maisonList.maisonList') }}" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Explorer</a>
                     </div>
                 </div>
                 <div class="product-offer mb-30" style="height: 200px;">
@@ -60,7 +60,7 @@
                     <div class="offer-text">
                     <h6 class="text-white text-uppercase">Séjour Authentique</h6>
                     <h3 class="text-white mb-3">Maisons d’hôtes en Tunisie</h3>
-                    <a href="{{ route('maisonList.maisonList') }}" class="btn btn-primary">Voir plus</a>
+                    <a href="{{ route('maisonList.maisonList') }}" class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp">Voir plus</a>
 
                     </div>
                 </div>

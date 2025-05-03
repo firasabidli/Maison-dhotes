@@ -70,13 +70,19 @@
                 <td class="align-middle">{{ $maison->adresse }}</td>
                 <td class="align-middle">{{ $reservation->date_debut }}</td>
                 <td class="align-middle">{{ $reservation->date_fin }}</td>
-                <td class="align-middle">{{ $reservation->statut }}</td>
+                <td class="align-middle {{ $reservation->statut == 'confirmée' ? 'confirmed' : ($reservation->statut == 'annulée' ? 'rejected' : 'pending')}}">{{ $reservation->statut }}</td>
                 <td class="align-middle">{{ $maison->prix_par_nuit }} TND</td>
                 <td class="align-middle">{{ $totals[$reservation->id] ?? 'N/A' }} TND</td>
                 <td class="align-middle">
-                    <button href="" class="btn btn-sm btn-warning" data-modal-target="modal-reservation{{ $reservation->id }}">
+                <button class="btn btn-sm btn-warning" 
+                        {{ $reservation->statut == 'confirmée' ? 'disabled' : '' }} 
+                        data-modal-target="modal-reservation{{ $reservation->id }}">
+                    @if($reservation->statut == 'confirmée')
+                        <i class="ri-error-warning-fill"></i> Pas de modification
+                    @else
                         <i class="fa fa-edit"></i> Modifier
-                    </button>
+                    @endif
+                </button>
                 </td>
             </tr>
             @include('client.components.modal.edit-reservation-modal', ['reservation' => $reservation])

@@ -15,6 +15,7 @@ class HomeController extends Controller
         $categories = Category::paginate(4);
 
         $maisons = Maison::where('nb_demande', '>', 0)
+                         ->with('user')
                          ->orderByDesc('nb_demande')
                          ->paginate(4);
             $noms = Maison::select('id', 'nom')->distinct()->get();

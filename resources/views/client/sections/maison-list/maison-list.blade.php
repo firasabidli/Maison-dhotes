@@ -27,9 +27,9 @@
                                     <img class="img-fluid w-100" src="{{ isset($maison->images[0]) ? asset('storage/public/maisons/' . basename($maison->images[0])) : asset('img/logo-dashboard.png') }}" 
                                     alt="Image de la maison"> 
                                     <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-client-info-{{ $maison->user->id }}"><i class="ri-user-search-fill"></i></a>
                                     <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fas fa-calendar-plus"></i></a>
-                                        
-                                        <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>
                                 <div class="text-center py-4">
@@ -65,6 +65,7 @@
                             </div>
                         </div>
                         @include('client.components.modal.reservation-modal', ['maison' => $maison])
+                        @include('client.components.modal.info-proprietaire-modal', ['user' => $maison->user])
                     @endforeach
                     <div class="col-12">
                         <!-- Pagination Laravel -->

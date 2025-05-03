@@ -30,7 +30,7 @@
              @include('client.sections.maison-detail.description-avis')
         </div>
     </div>
-
+    @include('client.components.modal.info-proprietaire-modal', ['user' => $maisondet->user])
     @include('client.components.modal.reservation-modal', ['maison' => $maisondet])
    
   

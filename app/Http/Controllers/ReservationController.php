@@ -17,18 +17,35 @@ class ReservationController extends Controller
             'date_fin' => 'required|date|after:date_debut',
             'nombre_personnes' => 'required|integer|min:1',
         ]);
-
+    
+        // Vérifier s’il y a un chevauchement de réservation
+        $conflict = Reservation::where('maison_id', $request->maison_id)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('date_debut', [$request->date_debut, $request->date_fin])
+                      ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin])
+                      ->orWhere(function ($q) use ($request) {
+                          $q->where('date_debut', '<=', $request->date_debut)
+                            ->where('date_fin', '>=', $request->date_fin);
+                      });
+            })
+            ->exists();
+    
+        if ($conflict) {
+            return redirect()->back()->withErrors(['date_debut' => 'Cette maison est déjà réservée pour les dates sélectionnées.']);
+        }
+    
+        // Aucune réservation conflictuelle → on crée
         Reservation::create([
             'maison_id' => $request->maison_id,
-            'client_id' => Auth::id(), // ou autre logique d'utilisateur
+            'client_id' => Auth::id(),
             'date_debut' => $request->date_debut,
             'date_fin' => $request->date_fin,
             'nombre_personnes' => $request->nombre_personnes,
             'statut' => 'en attente',
         ]);
-
+    
         return redirect()->back()->with('success', 'Réservation envoyée avec succès.');
-    }
+    }  
     public function suivieDemande()
     {
        
@@ -53,8 +70,11 @@ class ReservationController extends Controller
     }
     public function updateRes(Request $request, $id)
     {
-       
+      
         $res = Reservation::findOrFail($id);
+        if($res->statut=='confirmée'){
+            return redirect()->back()->withErrors('Vous ne pouvez pas modifier cette réservation. Veuillez contacter le propriétaire. ');
+           }
         $request->validate([
             'date_debut'       => 'required|date',
             'date_fin'         => 'required|date|after_or_equal:date_debut',
@@ -102,6 +122,7 @@ class ReservationController extends Controller
     {
        
         $res = Reservation::findOrFail($id);
+        $maison = Maison::findOrFail($res->maison->id);
 
         // Vérifier si l'utilisateur connecté est bien le propriétaire de la maison
         if ($res->maison->user_id !== Auth::id()) {
@@ -115,6 +136,11 @@ class ReservationController extends Controller
         $res->update([
             'statut' => $request->statut,
         ]);
+        if($request->statut=='confirmée'){
+            $maison->update([
+                'disponible' => 0
+            ]);
+        }
        
         return redirect()->route('reservation.reservationsMaisons')->with('success','Statut mise à jour.');
     }

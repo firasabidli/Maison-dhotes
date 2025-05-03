@@ -12,6 +12,7 @@
                      alt="Image de la maison"> 
             </div>
             <div class="product-action">
+            <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-client-info-{{ $maison->user->id }}"><i class="ri-user-search-fill"></i></a>
                 <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fas fa-calendar-plus"></i></a>
                 <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
             </div>
@@ -48,12 +49,14 @@
                                 <small class="far fa-star "></small>
                             @endfor
                     <small>({{ $reviewsCount }} avis)</small>
+                    
                 </div>
                 <small><i class="ri-bar-chart-fill card--icon stat--icon"></i>{{$maison->nb_demande}}</small>
             </div>
         </div>
     </div>
     @include('client.components.modal.reservation-modal', ['maison' => $maison])
+    @include('client.components.modal.info-proprietaire-modal', ['user' => $maison->user])
     @endforeach
 </div>
 

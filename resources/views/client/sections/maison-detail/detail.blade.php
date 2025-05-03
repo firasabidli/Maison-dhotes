@@ -64,26 +64,10 @@
                     
                    
                     <div class="d-flex align-items-center mb-4 pt-2">
-                    <button class="btn btn-primary px-3"  data-modal-target="modal-reservation{{ $maisondet->id }}"><i class="fas fa-calendar-plus"></i> Reserver</button>
-                        
+                    <button class="btn btn--primary px-3"  data-modal-target="modal-reservation{{ $maisondet->id }}"><i class="fas fa-calendar-plus"></i> Reserver</button>
+                    <a class="btn btn-outline-dark btn-square m-4"  data-modal-target="modal-client-info-{{ $maisondet->user->id }}"><i class="ri-user-search-fill"></i></a> 
                     </div>
-                    <div class="d-flex pt-2">
-                        <strong class="text-dark mr-2">Share on:</strong>
-                        <div class="d-inline-flex">
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a class="text-dark px-2" href="">
-                                <i class="fab fa-pinterest"></i>
-                            </a>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             
