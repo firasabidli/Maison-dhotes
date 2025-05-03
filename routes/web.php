@@ -12,6 +12,7 @@ use App\Http\Controllers\MaisonListController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ContactController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -36,6 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil', [ProfilController::class, 'settings'])->name('profil.settings');
     Route::put('/profil/modifier-profil/{id}', [ProfilController::class, 'updateProfile'])->name('profil.updateProfile');
     Route::put('/profil/change-password/{id}', [ProfilController::class, 'changePassword'])->name('profil.changePassword');
+
+    // contact
+
+    Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
 });
 
