@@ -13,6 +13,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ForgotPasswordController;
 Route::middleware('guest')->get('/', function () {
     return view('auth.login');
 });
@@ -21,10 +22,17 @@ Route::middleware('guest')->get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('client.home');
-
+    // Mot de passe oublié
+    Route::get('/forgot-password', function () {
+        return view('auth.forgot-password'); // Assure-toi que le fichier est bien dans resources/views/auth/
+    })->name('password.forgot');
+    
+    Route::post('/mot-de-passe-oublie/email', [ForgotPasswordController::class, 'step1'])->name('forgot.step1');
+    Route::post('/mot-de-passe-oublie/code', [ForgotPasswordController::class, 'step2'])->name('forgot.step2');
+    Route::post('/mot-de-passe-oublie/reset', [ForgotPasswordController::class, 'step3'])->name('forgot.step3');
 
 Route::middleware('auth')->group(function () {
-    
+        
     Route::get('/maison/detail/{id}', [MaisonController::class, 'detail'])->name('maison.detail');
     Route::get('/maison-list', [MaisonListController::class, 'maisonList'])->name('maisonList.maisonList');
     
