@@ -25,7 +25,7 @@ class ContactController extends Controller
         
 
         Mail::send('emails.contact', $data, function ($mail) use ($data) {
-            $mail->to('abidlifiras89@gmail.com')
+            $mail->to('locadar.tn@gmail.com')
                  ->subject('Nouveau message de contact : ' . $data['subject'])
                  ->replyTo($data['email']);
         });

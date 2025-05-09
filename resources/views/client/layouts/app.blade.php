@@ -26,9 +26,35 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/template.css') }}" rel="stylesheet">
     @yield('custom-css')
+
+    <style>
+        #loader {
+            position: fixed;
+            z-index: 9999;
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loader img {
+            width: 30%;
+        }
+
+        #app-content {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+<div id="loader">
+            <img src="{{ asset('img/loiding.gif') }}" alt="Chargement...">
+        </div>
     {{-- Navbar --}}
     @include('client.layouts.partials.navbar')
 
@@ -59,6 +85,16 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('app-content').style.display = 'block';
+            }, 2000); // 2 secondes
+        });
+    </script>
+
     
 </body>
 

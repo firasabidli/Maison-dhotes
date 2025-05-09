@@ -25,8 +25,8 @@
         <td bgcolor="#ffffff" class="email-container">
             <table role="presentation" width="100%">
                 <tr>
-                    <td style="padding: 20px; text-align: center; background-color: #313131;">
-                        <img src="{{ asset('img/login-register.gif') }}" width="250" alt="Logo" style="height: auto; display: block; margin: 0 auto;" />
+                    <td style="padding: 20px; text-align: center; background-color:rgb(255, 255, 255);">
+                        <img src="https://i.imgur.com/6YRpoqd.png" width="250" alt="Logo" style="height: auto; display: block; margin: 0 auto;" />
                     </td>
                 </tr>
             </table>

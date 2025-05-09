@@ -8,12 +8,12 @@ class Maison extends Model
 {
     protected $fillable = [
         'nom', 'description', 'adresse', 'ville', 'prix_par_nuit',
-        'capacite', 'disponible', 'nb_demande', 'category_id', 'user_id', 'images'
+        'capacite', 'nb_demande', 'category_id', 'user_id', 'images'
     ];
 
     protected $casts = [
         'images' => 'array',
-        'disponible' => 'boolean',
+        
         
     ];
 
