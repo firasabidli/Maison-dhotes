@@ -2,17 +2,17 @@
 <div class="modal" id="modal-pay-{{ $reservation->id }}">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>Validation de paiment de le client <strong class="scheduled">{{$reservation->client->name}}</strong></h3>
+        <h3>Validation de paiment de le client <strong class="scheduled">{{$reservation->client->name ?? 'N/A'}}</strong></h3>
         <form action="{{ route('reservation.paiement', $reservation->id) }}" method="POST" >
             @csrf
             @method('PUT')
 
             <div class="form-grid">
                 <div class="form-group">
-                    <strong class="scheduled"><i class="ri-mail-fill"></i>{{$reservation->client->email}}</strong>
+                    <strong class="scheduled"><i class="ri-mail-fill"></i>{{$reservation->client->email ?? 'N/A'}}</strong>
                 </div>
                 <div class="form-group">
-                    <strong class="scheduled"><i class="ri-phone-fill"></i>{{$reservation->client->num_tel }}</strong>
+                    <strong class="scheduled"><i class="ri-phone-fill"></i>{{$reservation->client->num_tel ?? 'N/A' }}</strong>
                 </div>
                 <div class="form-group">
                     <label>Paiement effectué</label>
