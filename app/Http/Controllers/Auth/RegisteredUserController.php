@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
             'password.confirmed' => "Les mots de passe ne correspondent pas.",
             'role.in' => "Le rôle sélectionné est invalide.",
             'num_tel.regex' => 'Le numéro doit être sous la forme +216XXXXXXXX.',
-            'name.min' => "L'adresse doit contenir au moins 3 caractères.",
+            'adresse.min' => "L'adresse doit contenir au moins 3 caractères.",
         ]);
 
         if ($validator->fails()) {

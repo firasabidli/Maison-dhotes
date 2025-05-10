@@ -118,64 +118,42 @@
 
     <main  class="{{ session()->has('register_errors') ? 'sign-up-mode' : '' }}">
 
-            <div class="box {{ session()->has('register_errors') ? 'box-errors' : '' }}"">
+            <div class="box">
         
                 <div class="inner-box">
                     <div class="forms-wrap">
-                    @if ($errors->any())
-                        @if (old('name')) 
-                            @php session()->flash('register_errors', true); @endphp
-                        @endif
-
-                        <div class="notification notification--failure" role="alert" aria-live="assertive">
-                            <div class="notification__body">
-                                <i class="bi bi-x-circle-fill notification__icon"></i>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="notification__progress"></div>
-                        </div>
-                    @endif
-
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
 
                         <!-- Formulaire de connexion -->
                         <form method="POST" action="{{ route('login') }}" autocomplete="off" class="sign-in-form">
                             @csrf
 
-                            <div class="heading">
+                            <div class="heading" >
                                 <h2>Bon retour parmi nous</h2>
                                 <h6>Pas encore inscrit ?</h6>
                                 <a href="#" class="toggle">S'inscrire</a>
                             </div>
 
-                            <div class="actual-form">
-                            <!-- Email -->
+                            <div class="actual-form" style="padding-top:40px">
+                                <!-- Email -->
                                 <div class="input-wrap">
                                     <input type="email" name="email" class="input-field " required autofocus autocomplete="off" value="{{ old('email') }}" />
                                     <label>Email:</label>
                                 
                                 </div>
-                            <div class="erreurs" >
-                            @error('email')
-                                        <small class="error-message">{{ $message }}</small>
-                                    @enderror
-                            </div>
-                            <!-- Mot de passe -->
-                            <div class="input-wrap">
-                                        <input type="password" name="password" class="input-field password-field" required autocomplete="off" />
-                                        <label>Mot de passe</label>
-                                        <span class="toggle-password">
-                                        <i class="bi bi-eye-slash-fill"></i>
-                                        </span>
-                                    </div>
+                                <div class="erreurs" >
+                                @error('email')
+                                            <small class="error-message">{{ $message }}</small>
+                                        @enderror
+                                </div>
+                                <!-- Mot de passe -->
+                                <div class="input-wrap">
+                                    <input type="password" name="password" class="input-field password-field" required autocomplete="off" />
+                                    <label>Mot de passe</label>
+                                    <span class="toggle-password">
+                                    <i class="bi bi-eye-slash-fill"></i>
+                                    </span>
+                                </div>
                                     <div class="  mb-4">
                                     @error('password')
                                         <small class="error-message">{{ $message }}</small>

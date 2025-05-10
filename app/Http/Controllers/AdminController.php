@@ -55,7 +55,6 @@ class AdminController extends Controller
             'ville' => 'required|string',
             'prix_par_nuit' => 'required|numeric',
             'capacite' => 'required|integer',
-            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
@@ -76,7 +75,6 @@ class AdminController extends Controller
             'ville' => $request->ville,
             'prix_par_nuit' => $request->prix_par_nuit,
             'capacite' => $request->capacite,
-            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
             'user_id' => Auth::id(),
             'images' => $imagePaths
@@ -99,7 +97,6 @@ class AdminController extends Controller
             'ville' => 'required|string',
             'prix_par_nuit' => 'required|numeric',
             'capacite' => 'required|integer',
-            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
@@ -129,7 +126,6 @@ class AdminController extends Controller
             'ville' => $request->ville,
             'prix_par_nuit' => $request->prix_par_nuit,
             'capacite' => $request->capacite,
-            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
             'images' => $imagePaths
         ]);
@@ -305,7 +301,7 @@ class AdminController extends Controller
             'password.confirmed' => "Les mots de passe ne correspondent pas.",
             'role.in' => "Le rôle sélectionné est invalide.",
             'num_tel.regex' => "Le numéro de téléphone doit contenir exactement 8 chiffres.",
-            'name.min' => "L'adresse doit contenir au moins 3 caractères.",
+            'adresse.min' => "L'adresse doit contenir au moins 3 caractères.",
         ]);
 
         // Stockage local de l'avatar si fourni

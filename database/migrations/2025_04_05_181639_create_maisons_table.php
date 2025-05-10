@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string('ville');
             $table->decimal('prix_par_nuit', 8, 2);
             $table->integer('capacite');
-            $table->boolean('disponible')->default(true);
             $table->integer('nb_demande')->default(0);
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

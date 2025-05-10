@@ -46,7 +46,7 @@
         <li>
             <a href="{{ route('profil.settings') }}" class="{{ Request::is('/profil') ? 'active--link ' : '  text--dark' }}"  >
                 <span class="icon icon-7"><i class="ri-settings-3-line"></i></span>
-                <span class="sidebar--item">Settings</span>
+                <span class="sidebar--item">Paramaitre</span>
             </a>
         </li>
         <li>
@@ -56,7 +56,7 @@
                         onclick="event.preventDefault();
                                     this.closest('form').submit();">
                     <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
-                    <span class="sidebar--item">Logout</span>
+                    <span class="sidebar--item">Déconnexion</span>
                 </a>
             </form>
             

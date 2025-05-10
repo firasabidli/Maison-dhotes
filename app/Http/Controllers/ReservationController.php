@@ -136,11 +136,7 @@ class ReservationController extends Controller
         $res->update([
             'statut' => $request->statut,
         ]);
-        if($request->statut=='confirmée'){
-            $maison->update([
-                'disponible' => 0
-            ]);
-        }
+        
        
         return redirect()->route('reservation.reservationsMaisons')->with('success','Statut mise à jour.');
     }

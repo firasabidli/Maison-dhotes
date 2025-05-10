@@ -23,7 +23,7 @@
                 
                     <th>#</th>
                     <th>Nom</th>
-                    <th>Settings</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

@@ -44,7 +44,6 @@ class MaisonController extends Controller
             'ville' => 'required|string',
             'prix_par_nuit' => 'required|numeric',
             'capacite' => 'required|integer',
-            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
@@ -65,7 +64,6 @@ class MaisonController extends Controller
             'ville' => $request->ville,
             'prix_par_nuit' => $request->prix_par_nuit,
             'capacite' => $request->capacite,
-            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
             'user_id' => Auth::id(),
             'images' => $imagePaths
@@ -90,7 +88,6 @@ class MaisonController extends Controller
             'ville' => 'required|string',
             'prix_par_nuit' => 'required|numeric',
             'capacite' => 'required|integer',
-            'disponible' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'nullable|image|max:2048'
         ]);
@@ -120,7 +117,6 @@ class MaisonController extends Controller
             'ville' => $request->ville,
             'prix_par_nuit' => $request->prix_par_nuit,
             'capacite' => $request->capacite,
-            'disponible' => $request->disponible,
             'category_id' => $request->category_id,
             'images' => $imagePaths
         ]);

@@ -13,7 +13,7 @@
                     <th>Maison d'Hôte</th>
                     <th>Date Réservation</th>
                     <th>Paiement effectué</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

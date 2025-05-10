@@ -28,7 +28,7 @@
                     <th>Adresse</th>
                     <th>Prix par nuit</th>
                     <th>Capacite</th>
-                    <th>Disponible</th>
+                    
                     <th>Settings</th>
                 </tr>
             </thead>
@@ -44,7 +44,6 @@
                         <td>{{ $maison->adresse }}</td>
                         <td>{{ $maison->prix_par_nuit }}</td>
                         <td>{{ $maison->capacite }}</td>
-                        <td>{{ $maison->disponible }}</td>
                         <td>
                             <span>
                                 <i class="ri-edit-line edit" data-modal-target="modal-edit-{{ $maison->id }}"></i>

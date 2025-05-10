@@ -6,7 +6,7 @@
     </div>
     <div class="search--notification--profile">
         <div class="search">
-            <input type="text" placeholder="Search Schedule..">
+            <input type="text" >
             <button><i class="ri-search-2-line"></i></button>
         </div>
         <div class="notification--profile">

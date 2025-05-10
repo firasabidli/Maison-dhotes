@@ -33,13 +33,7 @@
                     <input type="number" name="capacite" value="{{ old('capacite', $maison->capacite) }}" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Disponible:</label>
-                    <select name="disponible" required>
-                        <option value="1" {{ old('disponible', $maison->disponible) == '1' ? 'selected' : '' }}>Oui</option>
-                        <option value="0" {{ old('disponible', $maison->disponible) == '0' ? 'selected' : '' }}>Non</option>
-                    </select>
-                </div>
+                
 
                 <div class="form-group">
                     <label>Catégorie:</label>

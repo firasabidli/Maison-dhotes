@@ -27,7 +27,7 @@
                 <th>Note</th>
                 <th>Commentaire</th>
                 <th>Date</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>

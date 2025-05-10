@@ -57,13 +57,7 @@
                     <input type="number" name="capacite" value="{{ old('capacite') }}" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Disponible:</label>
-                    <select name="disponible" required>
-                        <option value="1" {{ old('disponible') == '1' ? 'selected' : '' }}>Oui</option>
-                        <option value="0" {{ old('disponible') == '0' ? 'selected' : '' }}>Non</option>
-                    </select>
-                </div>
+                
 
                 <div class="form-group">
                     <label>Catégorie:</label>
