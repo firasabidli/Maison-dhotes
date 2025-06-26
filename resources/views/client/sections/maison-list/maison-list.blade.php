@@ -28,7 +28,11 @@
                                     alt="Image de la maison"> 
                                     <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-client-info-{{ $maison->user->id }}"><i class="ri-user-search-fill"></i></a>
+                                    @auth   
                                     <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-reservation{{ $maison->id }}"><i class="fas fa-calendar-plus"></i></a>
+                                    @else 
+                                    <a class="btn btn-outline-dark btn-square" href="{{ route('login') }}"><i class="ri-login-box-fill"></i></a>
+                                    @endauth
                                     <a class="btn btn-outline-dark btn-square" href="{{ route('maison.detail', $maison->id) }}"><i class="fa fa-search"></i></a>
                                     </div>
                                 </div>

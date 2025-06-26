@@ -33,14 +33,22 @@
                         <td>{{ $category->nom }}</td>
                         <td>
                             <span>
+                            @if ($category->cree_par == auth()->id())
                                 <i class="ri-edit-line edit" data-modal-target="modal-edit-{{ $category->id }}"></i>
                                 <i class="ri-delete-bin-line delete" data-modal-target="modal-delete-{{ $category->id }}"></i>
+                            @else
+                                <i class="ri-edit-line text-muted" style="cursor: not-allowed; opacity: 0.5;"></i>
+                                <i class="ri-delete-bin-line text-muted" style="cursor: not-allowed; opacity: 0.5;"></i>
+                            @endif
                             </span>
                         </td>
 
                     </tr>
-                    @include('proprietaire.components.categories.modal.edit-modal', ['category' => $category])
-                    @include('proprietaire.components.categories.modal.delete-modal', ['category' => $category])
+                   @if ($category->cree_par == auth()->id())
+                        @include('proprietaire.components.categories.modal.edit-modal', ['category' => $category])
+                        @include('proprietaire.components.categories.modal.delete-modal', ['category' => $category])
+                    @endif
+
                 @endforeach
             </tbody>
         </table>

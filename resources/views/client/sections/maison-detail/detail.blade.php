@@ -64,7 +64,13 @@
                     
                    
                     <div class="d-flex align-items-center mb-4 pt-2">
-                    <button class="btn btn--primary px-3"  data-modal-target="modal-reservation{{ $maisondet->id }}"><i class="fas fa-calendar-plus"></i> Reserver</button>
+                          @auth   
+                             <button class="btn btn--primary px-3"  data-modal-target="modal-reservation{{ $maisondet->id }}"><i class="fas fa-calendar-plus"></i> Reserver</button>
+                  
+                            @else 
+                            <a class="btn btn--primary px-3" href="{{ route('login') }}"><i class="ri-login-box-fill"></i> Connexion</a>
+                            @endauth
+                    
                     <a class="btn btn-outline-dark btn-square m-4"  data-modal-target="modal-client-info-{{ $maisondet->user->id }}"><i class="ri-user-search-fill"></i></a> 
                     </div>
                     

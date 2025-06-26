@@ -5,7 +5,7 @@
 @section('page-content')
 
 
-@include('admin.components.maisons.modal.create-modal')
+
 
 
 
@@ -13,8 +13,7 @@
 @include('admin.components.alert')
     <div class="title">
         <h2 class="section--title">Maison d'Hôtes</h2>
-        <button class="add" data-modal-target="modal-ajout"><i class="ri-add-line"></i> Ajouter Maison d'Hôtes</button>
-        
+       
     </div>
     <div class="table">
         <table>

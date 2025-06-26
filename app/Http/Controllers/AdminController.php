@@ -174,7 +174,8 @@ class AdminController extends Controller
          try {
              // Création de la catégorie
              Category::create([
-                 'nom' => $request->nom
+                 'nom' => $request->nom,
+                 'cree_par' => Auth::id(),
              ]);
  
              // Redirection avec succès
@@ -217,7 +218,7 @@ class AdminController extends Controller
  
      // Supprimer une catégorie
  
-     public function destroy($id)
+     public function categoryDestroy($id)
      {
          try {
              $category = Category::find($id);
