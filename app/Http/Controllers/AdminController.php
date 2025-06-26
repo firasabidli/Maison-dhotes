@@ -46,42 +46,7 @@ class AdminController extends Controller
         return view('admin.maisons', compact('maisons'));
     }
     
-    public function maisonsStore(Request $request)
-    {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'adresse' => 'required|string',
-            'ville' => 'required|string',
-            'prix_par_nuit' => 'required|numeric',
-            'capacite' => 'required|integer',
-            'category_id' => 'required|exists:categories,id',
-            'images.*' => 'nullable|image|max:2048'
-        ]);
-
-        $imagePaths = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filename = Carbon::now()->format('Ymd_His') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('public/maisons', $filename);
-                $imagePaths[] = $filename;
-            }
-        }
-
-        Maison::create([
-            'nom' => $request->nom,
-            'description' => $request->description,
-            'adresse' => $request->adresse,
-            'ville' => $request->ville,
-            'prix_par_nuit' => $request->prix_par_nuit,
-            'capacite' => $request->capacite,
-            'category_id' => $request->category_id,
-            'user_id' => Auth::id(),
-            'images' => $imagePaths
-        ]);
-
-        return redirect()->route('admin.maisonsIndex')->with('success', 'Maison ajoutée avec succès.');
-    }
+   
 
     
     public function maisonsUpdate(Request $request, $id)

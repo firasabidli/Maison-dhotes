@@ -6,10 +6,13 @@
     @foreach ($maisons as $maison)
     <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
         <div class="product-item bg-light mb-4">
+            <pre>{{ print_r($maison->images, true) }}</pre>
+
             <div class="product-img position-relative overflow-hidden">
-                <img class="img-fluid" 
-                     src="{{ isset($maison->images[0]) ? asset('storage/public/maisons/' . basename($maison->images[0])) : asset('img/logo-dashboard.png') }}" 
-                     alt="Image de la maison"> 
+                <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" 
+     src="{{ isset($maison->images[0]) ? asset('storage/public/maisons/' . basename($maison->images[0])) : asset('img/logo-dashboard.png') }}" 
+     alt="Image de la maison">
+
             </div>
             <div class="product-action">
             <a class="btn btn-outline-dark btn-square"  data-modal-target="modal-client-info-{{ $maison->user->id }}"><i class="ri-user-search-fill"></i></a>

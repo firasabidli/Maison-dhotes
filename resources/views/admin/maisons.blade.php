@@ -37,7 +37,10 @@
                         <td>{{ $maison->id }}</td>
                         <td>{{ $maison->nom }}</td>
                         <td>{{ $maison->category_id }}</td>
-                        <td>{{ $maison->description }}</td>
+                        <td>
+                            {{ strlen($maison->description) > 40 ? substr($maison->description, 0, 40) . '...' : $maison->description }}
+                        </td>
+
                         <td>{{ $maison->ville }}</td>
                         <td>{{ $maison->adresse }}</td>
                         <td>{{ $maison->prix_par_nuit }}</td>

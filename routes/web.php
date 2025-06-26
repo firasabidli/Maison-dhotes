@@ -58,7 +58,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Gestion maisons
     Route::get('/admin/maisons', [AdminController::class, 'maisonsIndex'])->name('admin.maisonsIndex');
-    Route::post('/admin/maisons', [AdminController::class, 'maisonsStore'])->name('admin.maisonsStore');
     Route::put('/admin/maisons/{id}', [AdminController::class, 'maisonsUpdate'])->name('admin.maisonsUpdate');
     Route::delete('/admin/maisons/{id}', [AdminController::class, 'maisonsDestroy'])->name('admin.maisonsDestroy');
 

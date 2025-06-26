@@ -3,7 +3,7 @@
 <div class="modal" id="modal-edit-profil-{{ $user->id }}"> 
     <div class="formContent">
         <span class="close">&times;</span>
-        <h3>Modifier la maison</h3>
+        <h3>Modifier Profil</h3>
         <form action="{{ route('profil.updateProfile', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
